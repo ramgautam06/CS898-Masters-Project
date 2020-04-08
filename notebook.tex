@@ -1,0 +1,2035 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{PossionRegression}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} 
+        \PY{k+kn}{from} \PY{n+nn}{patsy} \PY{k}{import} \PY{n}{dmatrices}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}111}]:} \PY{c+c1}{\PYZsh{}reading the data frame}
+          \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pest\PYZus{}traps.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{infer\PYZus{}datetime\PYZus{}format}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}112}]:} (12434, 7)
+\end{Verbatim}
+            
+    \section{Building dataframe for the pest
+CEW}\label{building-dataframe-for-the-pest-cew}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}113}]:} \PY{c+c1}{\PYZsh{}dividing the dataframe based on each pests \PYZhy{} pest CEW}
+          \PY{n}{df\PYZus{}CEW} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CEW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}114}]:} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}114}]:}               farm  trap\_count  year      date
+          pest                                          
+          CEW       Pelham-G           0  2006  20060619
+          CEW   Litchfield-W           0  2006  20060619
+          CEW   Litchfield-M           0  2006  20060619
+          CEW    Merrimack-T           0  2006  20060619
+          CEW       Hollis-L           1  2006  20060619
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}115}]:} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}115}]:}            farm  trap\_count  year      date
+          pest                                       
+          CEW    Hollis-K           3  2018  20181008
+          CEW   Hollis-B2           0  2018  20181008
+          CEW    Hollis-L           8  2018  20181008
+          CEW    Hollis-K           3  2018  20181015
+          CEW    Hollis-L           2  2018  20181015
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}116}]:} (3626, 4)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}117}]:} \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{date} 
+          
+          \PY{k}{def} \PY{n+nf}{compute\PYZus{}weeks}\PY{p}{(}\PY{n}{startDate}\PY{p}{,} \PY{n}{endDate}\PY{p}{)}\PY{p}{:}
+              \PY{n}{s\PYZus{}yyyy} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{startDate}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}
+              \PY{n}{s\PYZus{}mm} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{startDate}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}
+              \PY{n}{s\PYZus{}dd} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{startDate}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+                      
+              \PY{n}{d1} \PY{o}{=} \PY{n}{date}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{s\PYZus{}yyyy}\PY{p}{)}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{s\PYZus{}mm}\PY{p}{)}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{s\PYZus{}dd}\PY{p}{)}\PY{p}{)}
+              
+              \PY{n}{e\PYZus{}yyyy} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{endDate}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}
+              \PY{n}{e\PYZus{}mm} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{endDate}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}
+              \PY{n}{e\PYZus{}dd} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{endDate}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+                      
+              \PY{n}{d2} \PY{o}{=} \PY{n}{date}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{e\PYZus{}yyyy}\PY{p}{)}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{e\PYZus{}mm}\PY{p}{)}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{e\PYZus{}dd}\PY{p}{)}\PY{p}{)}
+              
+              \PY{k}{return} \PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{p}{(}\PY{n}{d2}\PY{o}{\PYZhy{}}\PY{n}{d1}\PY{p}{)}\PY{o}{.}\PY{n}{days} \PY{o}{/} \PY{l+m+mi}{7}\PY{p}{)}\PY{p}{)}
+                      
+          \PY{k}{def} \PY{n+nf}{convert\PYZus{}pandasDate}\PY{p}{(}\PY{n}{change\PYZus{}date}\PY{p}{)}\PY{p}{:}
+              \PY{n}{change\PYZus{}date} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{change\PYZus{}date}\PY{p}{)}\PY{p}{[}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{change\PYZus{}date}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{/}\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n+nb}{str}\PY{p}{(}\PY{n}{change\PYZus{}date}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{6}\PY{p}{:}\PY{l+m+mi}{8}\PY{p}{]}
+              \PY{n}{change\PYZus{}date} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{change\PYZus{}date}\PY{p}{)}
+              \PY{k}{return} \PY{p}{(}\PY{n}{change\PYZus{}date}\PY{p}{)}
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{start\PYZus{}cew\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{search\PYZus{}cew\PYZus{}STdate} \PY{o}{=} \PY{n}{convert\PYZus{}pandasDate}\PY{p}{(}\PY{n}{start\PYZus{}cew\PYZus{}date}\PY{p}{)}
+          
+          \PY{n}{end\PYZus{}cew\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{3626}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{search\PYZus{}cew\PYZus{}ENDdate} \PY{o}{=} \PY{n}{convert\PYZus{}pandasDate}\PY{p}{(}\PY{n}{end\PYZus{}cew\PYZus{}date}\PY{p}{)}
+          
+          \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{convert\PYZus{}pandasDate}\PY{p}{)}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}CEW[\PYZsq{}date\PYZsq{}] = pd.to\PYZus{}datetime(df\PYZus{}CEW[\PYZsq{}date\PYZsq{}])}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}cew\PYZus{}STdate}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}cew\PYZus{}ENDdate}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total weeeks }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{compute\PYZus{}weeks}\PY{p}{(}\PY{n}{search\PYZus{}cew\PYZus{}STdate}\PY{p}{,} \PY{n}{search\PYZus{}cew\PYZus{}ENDdate}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2006-06-19 00:00:00
+2018-10-15 00:00:00
+total weeeks  643
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}185}]:} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Building dataframe for the pest
+ECB}\label{building-dataframe-for-the-pest-ecb}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}120}]:} \PY{c+c1}{\PYZsh{}dividing the dataframe based on each pests \PYZhy{} pest ECB}
+          \PY{n}{df\PYZus{}ECB} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ECB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}121}]:} \PY{n}{df\PYZus{}ECB}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}121}]:}               farm  trap\_count  year      date
+          pest                                          
+          ECB   Litchfield-W          16  2006  20060619
+          ECB       Hollis-B           7  2006  20060619
+          ECB        Mason-B          11  2006  20060619
+          ECB   Litchfield-W          25  2006  20060626
+          ECB       Hollis-B          31  2006  20060626
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}122}]:} \PY{n}{df\PYZus{}ECB}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}122}]:}                 farm  trap\_count  year      date
+          pest                                            
+          ECB     Hollis-JL-Pl           0  2018  20180924
+          ECB   Peterborough-R           0  2018  20180924
+          ECB          Mason-B           0  2018  20180924
+          ECB     NewIpswich-B           0  2018  20180924
+          ECB        Milford-M           0  2018  20180924
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}123}]:} \PY{n}{df\PYZus{}ECB}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}123}]:} (4979, 4)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}124}]:} \PY{n}{start\PYZus{}ecb\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{search\PYZus{}ecb\PYZus{}STdate} \PY{o}{=} \PY{n}{convert\PYZus{}pandasDate}\PY{p}{(}\PY{n}{start\PYZus{}cew\PYZus{}date}\PY{p}{)}
+          
+          \PY{n}{end\PYZus{}ecb\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{4979}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{search\PYZus{}ecb\PYZus{}ENDdate} \PY{o}{=} \PY{n}{convert\PYZus{}pandasDate}\PY{p}{(}\PY{n}{end\PYZus{}cew\PYZus{}date}\PY{p}{)}
+          
+          \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{convert\PYZus{}pandasDate}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}ecb\PYZus{}STdate}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}ecb\PYZus{}ENDdate}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total weeeks }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{compute\PYZus{}weeks}\PY{p}{(}\PY{n}{search\PYZus{}ecb\PYZus{}STdate}\PY{p}{,} \PY{n}{search\PYZus{}ecb\PYZus{}ENDdate}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2006-06-19 00:00:00
+2018-10-15 00:00:00
+total weeeks  643
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}188}]:} \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{Building dataframe for the pest
+FAW}\label{building-dataframe-for-the-pest-faw}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}215}]:} \PY{c+c1}{\PYZsh{}dividing the dataframe based on each pests \PYZhy{} pest FAW}
+          \PY{n}{df\PYZus{}FAW} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FAW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}216}]:} \PY{n}{df\PYZus{}FAW}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}216}]:}               farm  trap\_count  year      date
+          pest                                          
+          FAW       Pelham-G           0  2006  20060619
+          FAW   Litchfield-W           0  2006  20060619
+          FAW   Litchfield-M           0  2006  20060619
+          FAW    Merrimack-T           0  2006  20060619
+          FAW       Hollis-L           0  2006  20060619
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}217}]:} \PY{n}{df\PYZus{}FAW}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}217}]:}            farm  trap\_count  year      date
+          pest                                       
+          FAW    Antrim-T           0  2018  20181001
+          FAW   Milford-M           0  2018  20181001
+          FAW   Hollis-B2           0  2018  20181008
+          FAW    Hollis-L           2  2018  20181008
+          FAW    Hollis-L           3  2018  20181015
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}218}]:} \PY{n}{df\PYZus{}FAW}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}218}]:} (3829, 4)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}219}]:} \PY{n}{start\PYZus{}faw\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+          \PY{n}{search\PYZus{}faw\PYZus{}STdate} \PY{o}{=} \PY{n}{convert\PYZus{}pandasDate}\PY{p}{(}\PY{n}{start\PYZus{}cew\PYZus{}date}\PY{p}{)}
+          
+          \PY{n}{end\PYZus{}faw\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{3829}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
+          \PY{n}{search\PYZus{}faw\PYZus{}ENDdate} \PY{o}{=} \PY{n}{convert\PYZus{}pandasDate}\PY{p}{(}\PY{n}{end\PYZus{}cew\PYZus{}date}\PY{p}{)}
+          
+          \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{n}{convert\PYZus{}pandasDate}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}faw\PYZus{}STdate}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}faw\PYZus{}ENDdate}\PY{p}{)}
+          
+          \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total weeeks }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{compute\PYZus{}weeks}\PY{p}{(}\PY{n}{search\PYZus{}faw\PYZus{}STdate}\PY{p}{,} \PY{n}{search\PYZus{}faw\PYZus{}ENDdate}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2006-06-19 00:00:00
+2018-10-15 00:00:00
+total weeeks  643
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}220}]:} \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{NOAA DATA}\label{noaa-data}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{df\PYZus{}NOOA} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DAW.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/IPython/core/interactiveshell.py:2785: DtypeWarning: Columns (7,15,21,22,23) have mixed types. Specify dtype option on import or set low\_memory=False.
+  interactivity=interactivity, compiler=compiler, result=result)
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{df\PYZus{}NOOA}\PY{o}{.}\PY{n}{shape}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}131}]:} (473979, 29)
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{df\PYZus{}NOOA}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}132}]:} Index(['station', 'valid', 'tmpf', 'dwpf', 'relh', 'drct', 'sknt', 'p01i',
+                 'alti', 'mslp', 'vsby', 'gust', 'skyc1', 'skyc2', 'skyc3', 'skyc4',
+                 'skyl1', 'skyl2', 'skyl3', 'skyl4', 'wxcodes', 'ice\_accretion\_1hr',
+                 'ice\_accretion\_3hr', 'ice\_accretion\_6hr', 'peak\_wind\_gust',
+                 'peak\_wind\_drct', 'peak\_wind\_time', 'feel', 'metar'],
+                dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{df\PYZus{}equation}  \PY{o}{=} \PY{n}{df\PYZus{}NOOA}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tmpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dwpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{df\PYZus{}equation}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}133}]:}     tmpf   dwpf  drct   feel             valid
+          0  24.80  10.40  60.0  20.46  2006-01-01 00:38
+          1  24.08  10.04  80.0  19.63  2006-01-01 00:51
+          2  21.92  15.98  20.0  13.39  2006-01-01 01:51
+          3  21.20  17.60  30.0  11.61  2006-01-01 02:15
+          4  21.92  17.06  30.0  13.39  2006-01-01 02:51
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:1: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+  """Entry point for launching an IPython kernel.
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}135}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}cew\PYZus{}STdate}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}cew\PYZus{}ENDdate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2006-06-19 00:00:00
+2018-10-15 00:00:00
+
+    \end{Verbatim}
+
+    \section{selecting weather dataframe within the date range - CEW
+Pest}\label{selecting-weather-dataframe-within-the-date-range---cew-pest}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}136}]:} \PY{c+c1}{\PYZsh{}selecting the dataframe within the range \PYZhy{} CEW Pest}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}equation = df\PYZus{}equation.loc[(df\PYZus{}equation[\PYZsq{}valid\PYZsq{}] \PYZgt{}= search\PYZus{}st\PYZus{}date) \PYZam{} (df\PYZus{}equation[\PYZsq{}valid\PYZsq{}] \PYZlt{}= search\PYZus{}end\PYZus{}date), :]}
+          \PY{n}{df\PYZus{}equation} \PY{o}{=} \PY{n}{df\PYZus{}equation}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{search\PYZus{}cew\PYZus{}STdate}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{search\PYZus{}cew\PYZus{}ENDdate}\PY{p}{)}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}137}]:} \PY{c+c1}{\PYZsh{}need to get all the columns from here and sum up fro every week }
+          \PY{c+c1}{\PYZsh{}select date and each column, and find the average for each column}
+          \PY{n}{df\PYZus{}tempf} \PY{o}{=} \PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tmpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dwpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{df\PYZus{}tempf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tmpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tmpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}tempf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dwpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dwpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}tempf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{drct}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{drct}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}tempf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{feel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{feel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}138}]:} \PY{n}{df\PYZus{}tempf}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}138}]:}         tmpf  dwpf   drct  feel               valid
+          341757   0.0   0.0    0.0   0.0 2018-10-14 23:35:00
+          341758   0.0   0.0  190.0   0.0 2018-10-14 23:40:00
+          341759   0.0   0.0    0.0   0.0 2018-10-14 23:50:00
+          341760  46.0  39.9    0.0  46.0 2018-10-14 23:51:00
+          341761   0.0   0.0    0.0   0.0 2018-10-14 23:55:00
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}139}]:} \PY{c+c1}{\PYZsh{}df\PYZus{}tempf}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}140}]:} \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{date}
+          
+          \PY{k}{def} \PY{n+nf}{getweekly\PYZus{}temperature}\PY{p}{(}\PY{n}{df\PYZus{}tempf}\PY{p}{,}\PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{week\PYZus{}counts} \PY{o}{=} \PY{l+m+mi}{0}
+              
+              \PY{n}{count} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{temp\PYZus{}index} \PY{o}{=} \PY{l+m+mi}{0}
+               
+              \PY{n}{count\PYZus{}day0} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{count\PYZus{}day1} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{count\PYZus{}day2} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{count\PYZus{}day3} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{count\PYZus{}day4} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{count\PYZus{}day5} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{count\PYZus{}day6}\PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{totaldays} \PY{o}{=} \PY{l+m+mi}{0}
+              
+              \PY{n}{temperature} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{dewTemp} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{winDir} \PY{o}{=} \PY{l+m+mi}{0}
+              \PY{n}{feelTemp} \PY{o}{=} \PY{l+m+mi}{0}
+              
+              \PY{c+c1}{\PYZsh{}empt sets for all the values}
+              \PY{n}{lst\PYZus{}tempf} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{lst\PYZus{}dwpf} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{lst\PYZus{}drct} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{lst\PYZus{}feel} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              \PY{n}{lst\PYZus{}date} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+              
+              \PY{k}{for} \PY{n}{i} \PY{p}{,} \PY{n}{j} \PY{o+ow}{in} \PY{n}{df\PYZus{}tempf}\PY{o}{.}\PY{n}{iterrows}\PY{p}{(}\PY{p}{)}\PY{p}{:}
+                  
+                  \PY{k}{if} \PY{n}{count} \PY{o}{==}\PY{l+m+mi}{0}\PY{p}{:}
+                      \PY{n}{row} \PY{o}{=} \PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{)}
+                      \PY{c+c1}{\PYZsh{}print(row[1][1])}
+                      \PY{c+c1}{\PYZsh{}initial\PYZus{}date = row[1][1]}
+                      \PY{n}{initial\PYZus{}date} \PY{o}{=} \PY{n}{row}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+                      \PY{n}{f\PYZus{}yyyy} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{initial\PYZus{}date}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}
+                      \PY{n}{f\PYZus{}mm} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{initial\PYZus{}date}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}
+                      \PY{n}{f\PYZus{}dd} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{initial\PYZus{}date}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+                      \PY{n}{f\PYZus{}date} \PY{o}{=} \PY{n}{date}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{f\PYZus{}yyyy}\PY{p}{)}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{f\PYZus{}mm}\PY{p}{)}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{f\PYZus{}dd}\PY{p}{)}\PY{p}{)}
+                      
+                  \PY{n}{row\PYZus{}data} \PY{o}{=} \PY{p}{(}\PY{n}{i}\PY{p}{,}\PY{n}{j}\PY{p}{)}
+                  \PY{c+c1}{\PYZsh{}print(row\PYZus{}data)}
+                  \PY{c+c1}{\PYZsh{}summing up the temperature}
+                  \PY{c+c1}{\PYZsh{}temperature = row\PYZus{}data[1][0]}
+                  \PY{n}{temperature} \PY{o}{=} \PY{n}{temperature} \PY{o}{+} \PY{n}{row\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+                  \PY{n}{dewTemp} \PY{o}{=} \PY{n}{dewTemp} \PY{o}{+} \PY{n}{row\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+                  \PY{n}{winDir} \PY{o}{=} \PY{n}{winDir} \PY{o}{+} \PY{n}{row\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}
+                  \PY{n}{feelTemp} \PY{o}{=} \PY{n}{feelTemp} \PY{o}{+} \PY{n}{row\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{3}\PY{p}{]}
+                  
+                  \PY{c+c1}{\PYZsh{}last\PYZus{}date = row\PYZus{}data[1][1]}
+                  \PY{n}{last\PYZus{}date} \PY{o}{=} \PY{n}{row\PYZus{}data}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{4}\PY{p}{]}
+                  \PY{n}{l\PYZus{}yyyy} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{last\PYZus{}date}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}
+                  \PY{n}{l\PYZus{}mm} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{last\PYZus{}date}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{5}\PY{p}{:}\PY{l+m+mi}{7}\PY{p}{]}
+                  \PY{n}{l\PYZus{}dd} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{last\PYZus{}date}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{8}\PY{p}{:}\PY{l+m+mi}{10}\PY{p}{]}
+                  \PY{n}{l\PYZus{}date} \PY{o}{=} \PY{n}{date}\PY{p}{(}\PY{n+nb}{int}\PY{p}{(}\PY{n}{l\PYZus{}yyyy}\PY{p}{)}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{l\PYZus{}mm}\PY{p}{)}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{l\PYZus{}dd}\PY{p}{)}\PY{p}{)}
+                      
+                  \PY{c+c1}{\PYZsh{}change in date }
+                  \PY{n}{delta} \PY{o}{=} \PY{n}{l\PYZus{}date} \PY{o}{\PYZhy{}} \PY{n}{f\PYZus{}date}
+                  \PY{c+c1}{\PYZsh{}print (delta.days)}
+                  \PY{k}{if} \PY{n}{delta}\PY{o}{.}\PY{n}{days}\PY{o}{\PYZpc{}}\PY{k}{7} == 0:
+                      \PY{n}{week\PYZus{}counts} \PY{o}{=} \PY{n}{week\PYZus{}counts} \PY{o}{+} \PY{l+m+mi}{1}
+                  
+                  \PY{k}{if} \PY{n}{delta}\PY{o}{.}\PY{n}{days} \PY{o}{==} \PY{l+m+mi}{0}\PY{p}{:}
+                      \PY{n}{count\PYZus{}day0} \PY{o}{=} \PY{n}{count\PYZus{}day0} \PY{o}{+} \PY{l+m+mi}{1}
+                  \PY{k}{elif} \PY{n}{delta}\PY{o}{.}\PY{n}{days} \PY{o}{==} \PY{l+m+mi}{1}\PY{p}{:}
+                      \PY{n}{count\PYZus{}day1} \PY{o}{=} \PY{n}{count\PYZus{}day1} \PY{o}{+} \PY{l+m+mi}{1}
+                  \PY{k}{elif} \PY{n}{delta}\PY{o}{.}\PY{n}{days} \PY{o}{==} \PY{l+m+mi}{2}\PY{p}{:}
+                      \PY{n}{count\PYZus{}day2} \PY{o}{=} \PY{n}{count\PYZus{}day2} \PY{o}{+} \PY{l+m+mi}{1}
+                  \PY{k}{elif} \PY{n}{delta}\PY{o}{.}\PY{n}{days} \PY{o}{==} \PY{l+m+mi}{3}\PY{p}{:}
+                      \PY{n}{count\PYZus{}day3} \PY{o}{=} \PY{n}{count\PYZus{}day3} \PY{o}{+} \PY{l+m+mi}{1}
+                  \PY{k}{elif} \PY{n}{delta}\PY{o}{.}\PY{n}{days} \PY{o}{==} \PY{l+m+mi}{4}\PY{p}{:}
+                      \PY{n}{count\PYZus{}day4} \PY{o}{=} \PY{n}{count\PYZus{}day4} \PY{o}{+} \PY{l+m+mi}{1}
+                  \PY{k}{elif} \PY{n}{delta}\PY{o}{.}\PY{n}{days} \PY{o}{==} \PY{l+m+mi}{5}\PY{p}{:}
+                      \PY{n}{count\PYZus{}day5} \PY{o}{=} \PY{n}{count\PYZus{}day5} \PY{o}{+} \PY{l+m+mi}{1}
+                  \PY{k}{elif} \PY{n}{delta}\PY{o}{.}\PY{n}{days} \PY{o}{==} \PY{l+m+mi}{6}\PY{p}{:}
+                      \PY{n}{count\PYZus{}day6} \PY{o}{=} \PY{n}{count\PYZus{}day6} \PY{o}{+} \PY{l+m+mi}{1}       
+                  \PY{c+c1}{\PYZsh{}elif delta.days == 7:}
+                  \PY{k}{else}\PY{p}{:}
+                      \PY{c+c1}{\PYZsh{}compute average temperature}
+                      \PY{n}{totaldays} \PY{o}{=} \PY{n}{count\PYZus{}day0} \PY{o}{+} \PY{n}{count\PYZus{}day1} \PY{o}{+} \PY{n}{count\PYZus{}day2} \PY{o}{+} \PY{n}{count\PYZus{}day3} \PY{o}{+} \PY{n}{count\PYZus{}day4} \PY{o}{+} \PY{n}{count\PYZus{}day5} \PY{o}{+} \PY{n}{count\PYZus{}day6}
+                      
+                      \PY{n}{avg\PYZus{}Temp} \PY{o}{=} \PY{n}{temperature}\PY{o}{/}\PY{n}{totaldays}
+                      \PY{n}{avg\PYZus{}dewTemp} \PY{o}{=} \PY{n}{dewTemp}\PY{o}{/}\PY{n}{totaldays}
+                      \PY{n}{avg\PYZus{}winDir} \PY{o}{=} \PY{n}{winDir}\PY{o}{/}\PY{n}{totaldays}
+                      \PY{n}{avg\PYZus{}feelTemp} \PY{o}{=} \PY{n}{feelTemp}\PY{o}{/}\PY{n}{totaldays}
+                      
+                      \PY{c+c1}{\PYZsh{}appending values to the list}
+                      \PY{n}{lst\PYZus{}tempf}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{avg\PYZus{}Temp}\PY{p}{)}
+                      \PY{n}{lst\PYZus{}dwpf}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{avg\PYZus{}dewTemp}\PY{p}{)}
+                      \PY{n}{lst\PYZus{}drct}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{avg\PYZus{}winDir}\PY{p}{)}
+                      \PY{n}{lst\PYZus{}feel}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{avg\PYZus{}feelTemp}\PY{p}{)} 
+              
+                      \PY{n}{lst\PYZus{}date}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{f\PYZus{}date}\PY{p}{)}
+                      \PY{c+c1}{\PYZsh{}print(f\PYZus{}date)}
+                      
+                      \PY{c+c1}{\PYZsh{}get the start date }
+                      \PY{c+c1}{\PYZsh{}put all into the date frame }
+                      
+                      \PY{n}{temp\PYZus{}index} \PY{o}{=} \PY{n}{temp\PYZus{}index} \PY{o}{+} \PY{l+m+mi}{1}
+                      
+                      \PY{c+c1}{\PYZsh{}flush the date }
+                      \PY{n}{f\PYZus{}date} \PY{o}{=} \PY{n}{l\PYZus{}date}
+                      
+                      \PY{c+c1}{\PYZsh{}flush days count }
+                      \PY{n}{count\PYZus{}day0} \PY{o}{=} \PY{l+m+mi}{0}
+                      \PY{n}{count\PYZus{}day1} \PY{o}{=} \PY{l+m+mi}{0}
+                      \PY{n}{count\PYZus{}day2} \PY{o}{=} \PY{l+m+mi}{0}
+                      \PY{n}{count\PYZus{}day3} \PY{o}{=} \PY{l+m+mi}{0} 
+                      \PY{n}{count\PYZus{}day4} \PY{o}{=} \PY{l+m+mi}{0} 
+                      \PY{n}{count\PYZus{}day5} \PY{o}{=} \PY{l+m+mi}{0}
+                      \PY{n}{count\PYZus{}day6} \PY{o}{=} \PY{l+m+mi}{0}
+                      
+                      \PY{c+c1}{\PYZsh{}flushing all the records \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} temperature}
+                      \PY{n}{temperature} \PY{o}{=} \PY{l+m+mi}{0}
+                      \PY{n}{dewTemp} \PY{o}{=} \PY{l+m+mi}{0}
+                      \PY{n}{winDir} \PY{o}{=} \PY{l+m+mi}{0}
+                      \PY{n}{feelTemp} \PY{o}{=} \PY{l+m+mi}{0}
+                      
+                  \PY{c+c1}{\PYZsh{}initialize the repetation}
+                  \PY{n}{count} \PY{o}{=} \PY{n}{count} \PY{o}{+} \PY{l+m+mi}{1}
+                  
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total temperature index }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{temp\PYZus{}index}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{total weeks: }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{week\PYZus{}counts}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}assigning list to the dictonary}
+              \PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tempf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lst\PYZus{}tempf}
+              \PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dwpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lst\PYZus{}dwpf}
+              \PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lst\PYZus{}drct}
+              \PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lst\PYZus{}feel}
+              \PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{lst\PYZus{}date}
+              
+              \PY{c+c1}{\PYZsh{}return CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}
+              \PY{c+c1}{\PYZsh{}print(df\PYZus{}tempf)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}141}]:} \PY{c+c1}{\PYZsh{}calling getweekly\PYZus{}temperature}
+          \PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          \PY{n}{getweekly\PYZus{}temperature}\PY{p}{(}\PY{n}{df\PYZus{}tempf}\PY{p}{,}\PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+total temperature index  642
+total weeks:  47922
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}142}]:} \PY{c+c1}{\PYZsh{}creating data frame needed for equation}
+          \PY{c+c1}{\PYZsh{}print(CEW\PYZus{}weather\PYZus{}data\PYZus{}dic)}
+          \PY{n}{df\PYZus{}CEW\PYZus{}weather} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}143}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}143}]:}        tempf       dwpf        drct       feel        date
+          0  70.977613  63.913169   63.703704  71.301399  2006-06-19
+          1  71.243468  65.095887   84.233871  71.733347  2006-06-26
+          2  71.056485  59.203758  127.515152  71.263273  2006-07-03
+          3  71.830909  66.491782   59.745455  72.608255  2006-07-10
+          4  73.200175  66.515808  101.004367  74.150786  2006-07-17
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}144}]:}         tempf      dwpf        drct      feel        date
+          637  6.936188  6.288330  156.129550  6.983009  2018-09-03
+          638  9.211018  8.905188  113.670949  9.217243  2018-09-10
+          639  7.760753  7.281021  110.056730  7.728195  2018-09-17
+          640  6.692446  6.180576  161.330935  6.548972  2018-09-24
+          641  7.799536  7.509856  134.674923  7.750764  2018-10-01
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}186}]:} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}146}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}147}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}148}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{predicted tarp counts :::: CEW
+pests}\label{predicted-tarp-counts-cew-pests}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}149}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{columns}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}149}]:} Index(['farm', 'trap\_count', 'year', 'date', 'tempf', 'dwpf', 'drct', 'feel'], dtype='object')
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}150}]:} \PY{c+c1}{\PYZsh{}creating training and testign dataset }
+          \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.8}
+          \PY{n}{df\PYZus{}train\PYZus{}CEW} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
+          \PY{n}{df\PYZus{}test\PYZus{}CEW} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{mask}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}151}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}train\PYZus{}CEW}\PY{p}{)}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}test\PYZus{}CEW}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2053
+518
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}152}]:} \PY{n}{expr\PYZus{}CEW} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{trap\PYZus{}count \PYZti{} tempf + dwpf + drct + feel}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}153}]:} \PY{c+c1}{\PYZsh{}Set up the X and y matrices}
+          \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{dmatrices}\PY{p}{(}\PY{n}{expr\PYZus{}CEW}\PY{p}{,} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{,} \PY{n}{return\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataframe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{dmatrices}\PY{p}{(}\PY{n}{expr\PYZus{}CEW}\PY{p}{,} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{,} \PY{n}{return\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataframe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}154}]:} \PY{c+c1}{\PYZsh{}X\PYZus{}test}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}155}]:} \PY{c+c1}{\PYZsh{}Using the statsmodels GLM class, train the Poisson regression model on the training data set.}
+          \PY{n}{poisson\PYZus{}training\PYZus{}results} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{GLM}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{family}\PY{o}{=}\PY{n}{sm}\PY{o}{.}\PY{n}{families}\PY{o}{.}\PY{n}{Poisson}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}156}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{poisson\PYZus{}training\PYZus{}results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                 2571
+Model:                            GLM   Df Residuals:                     2566
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -41041.
+Date:                Sun, 05 Apr 2020   Deviance:                       75750.
+Time:                        22:59:34   Pearson chi2:                 1.55e+05
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      2.2900      0.042     54.923      0.000       2.208       2.372
+tempf         -0.0907      0.008    -12.012      0.000      -0.106      -0.076
+dwpf          -0.0165      0.003     -6.496      0.000      -0.021      -0.012
+drct           0.0014      0.000      5.331      0.000       0.001       0.002
+feel           0.1047      0.007     14.292      0.000       0.090       0.119
+==============================================================================
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}157}]:} \PY{c+c1}{\PYZsh{}Make some predictions on the test data set.}
+          \PY{n}{poisson\PYZus{}predictions} \PY{o}{=} \PY{n}{poisson\PYZus{}training\PYZus{}results}\PY{o}{.}\PY{n}{get\PYZus{}prediction}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}158}]:} \PY{c+c1}{\PYZsh{}.summary\PYZus{}frame() returns a pandas DataFrame}
+          \PY{n}{predictions\PYZus{}summary\PYZus{}frame} \PY{o}{=} \PY{n}{poisson\PYZus{}predictions}\PY{o}{.}\PY{n}{summary\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{predictions\PYZus{}summary\PYZus{}frame}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+           mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+0     10.502287  0.121299      10.267216      10.742741
+1     10.502287  0.121299      10.267216      10.742741
+2     10.502287  0.121299      10.267216      10.742741
+3     10.502287  0.121299      10.267216      10.742741
+4     10.502287  0.121299      10.267216      10.742741
+5     10.502287  0.121299      10.267216      10.742741
+6     10.502287  0.121299      10.267216      10.742741
+7     10.502287  0.121299      10.267216      10.742741
+8     10.502287  0.121299      10.267216      10.742741
+9     10.502287  0.121299      10.267216      10.742741
+10    10.502287  0.121299      10.267216      10.742741
+11    10.824663  0.103944      10.622843      11.030318
+12    10.824663  0.103944      10.622843      11.030318
+13    10.824663  0.103944      10.622843      11.030318
+14    10.824663  0.103944      10.622843      11.030318
+15    10.824663  0.103944      10.622843      11.030318
+16    10.824663  0.103944      10.622843      11.030318
+17    10.824663  0.103944      10.622843      11.030318
+18    10.824663  0.103944      10.622843      11.030318
+19    10.824663  0.103944      10.622843      11.030318
+20    10.824663  0.103944      10.622843      11.030318
+21    10.824663  0.103944      10.622843      11.030318
+22    12.268939  0.116009      12.043660      12.498433
+23    12.268939  0.116009      12.043660      12.498433
+24    12.268939  0.116009      12.043660      12.498433
+25    12.268939  0.116009      12.043660      12.498433
+26    12.268939  0.116009      12.043660      12.498433
+27    12.268939  0.116009      12.043660      12.498433
+28    12.268939  0.116009      12.043660      12.498433
+29    12.268939  0.116009      12.043660      12.498433
+{\ldots}         {\ldots}       {\ldots}            {\ldots}            {\ldots}
+2541  11.342433  0.197355      10.962146      11.735912
+2542  11.342433  0.197355      10.962146      11.735912
+2543  11.342433  0.197355      10.962146      11.735912
+2544  12.080906  0.207162      11.681623      12.493836
+2545  12.080906  0.207162      11.681623      12.493836
+2546  12.080906  0.207162      11.681623      12.493836
+2547  12.080906  0.207162      11.681623      12.493836
+2548  12.080906  0.207162      11.681623      12.493836
+2549  12.080906  0.207162      11.681623      12.493836
+2550  12.080906  0.207162      11.681623      12.493836
+2551  12.080906  0.207162      11.681623      12.493836
+2552  12.080906  0.207162      11.681623      12.493836
+2553  12.080906  0.207162      11.681623      12.493836
+2554  12.080906  0.207162      11.681623      12.493836
+2555  12.080906  0.207162      11.681623      12.493836
+2556  12.080906  0.207162      11.681623      12.493836
+2557  12.080906  0.207162      11.681623      12.493836
+2558  12.080906  0.207162      11.681623      12.493836
+2559  12.080906  0.207162      11.681623      12.493836
+2560  12.080906  0.207162      11.681623      12.493836
+2561  11.680781  0.185481      11.322844      12.050034
+2562  11.680781  0.185481      11.322844      12.050034
+2563  11.680781  0.185481      11.322844      12.050034
+2564  11.680781  0.185481      11.322844      12.050034
+2565  11.680781  0.185481      11.322844      12.050034
+2566  11.680781  0.185481      11.322844      12.050034
+2567  11.680781  0.185481      11.322844      12.050034
+2568  11.680781  0.185481      11.322844      12.050034
+2569  11.680781  0.185481      11.322844      12.050034
+2570  11.680781  0.185481      11.322844      12.050034
+
+[2571 rows x 4 columns]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}159}]:} \PY{n}{predicted\PYZus{}counts}\PY{o}{=}\PY{n}{predictions\PYZus{}summary\PYZus{}frame}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{actual\PYZus{}counts} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}160}]:} \PY{n}{predicted\PYZus{}counts}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}160}]:} 0       10.502287
+          1       10.502287
+          2       10.502287
+          3       10.502287
+          4       10.502287
+          5       10.502287
+          6       10.502287
+          7       10.502287
+          8       10.502287
+          9       10.502287
+          10      10.502287
+          11      10.824663
+          12      10.824663
+          13      10.824663
+          14      10.824663
+          15      10.824663
+          16      10.824663
+          17      10.824663
+          18      10.824663
+          19      10.824663
+          20      10.824663
+          21      10.824663
+          22      12.268939
+          23      12.268939
+          24      12.268939
+          25      12.268939
+          26      12.268939
+          27      12.268939
+          28      12.268939
+          29      12.268939
+                    {\ldots}    
+          2541    11.342433
+          2542    11.342433
+          2543    11.342433
+          2544    12.080906
+          2545    12.080906
+          2546    12.080906
+          2547    12.080906
+          2548    12.080906
+          2549    12.080906
+          2550    12.080906
+          2551    12.080906
+          2552    12.080906
+          2553    12.080906
+          2554    12.080906
+          2555    12.080906
+          2556    12.080906
+          2557    12.080906
+          2558    12.080906
+          2559    12.080906
+          2560    12.080906
+          2561    11.680781
+          2562    11.680781
+          2563    11.680781
+          2564    11.680781
+          2565    11.680781
+          2566    11.680781
+          2567    11.680781
+          2568    11.680781
+          2569    11.680781
+          2570    11.680781
+          Name: mean, Length: 2571, dtype: float64
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}161}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{actual\PYZus{}counts}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0        0.0
+1        0.0
+2        0.0
+3        0.0
+4        1.0
+5        0.0
+6        0.0
+7        0.0
+8        0.0
+9        0.0
+10       0.0
+11       0.0
+12       0.0
+13       0.0
+14       0.0
+15       1.0
+16       0.0
+17       0.0
+18       0.0
+19       0.0
+20       0.0
+21       0.0
+22       0.0
+23       3.0
+24       0.0
+25       0.0
+26       4.0
+27      10.0
+28       1.0
+29       3.0
+        {\ldots} 
+2541     0.0
+2542     2.0
+2543     5.0
+2544    21.0
+2545    10.0
+2546     8.0
+2547    20.0
+2548    12.0
+2549     8.0
+2550    23.0
+2551    60.0
+2552    65.0
+2553     1.0
+2554     1.0
+2555     5.0
+2556     4.0
+2557     3.0
+2558     1.0
+2559     2.0
+2560     1.0
+2561     6.0
+2562     2.0
+2563     0.0
+2564     0.0
+2565     8.0
+2566     2.0
+2567     6.0
+2568    12.0
+2569     1.0
+2570     1.0
+Name: trap\_count, Length: 2571, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}162}]:} \PY{c+c1}{\PYZsh{}Mlot the predicted counts versus the actual counts for the test data.}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted versus actual CEW pest counts }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{predicted}\PY{p}{,} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{predicted\PYZus{}counts}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{actual}\PY{p}{,} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{actual\PYZus{}counts}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{o}{=}\PY{p}{[}\PY{n}{predicted}\PY{p}{,} \PY{n}{actual}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}163}]:} \PY{c+c1}{\PYZsh{}writing dataframe into csv file}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}164}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted\PYZus{}counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{predicted\PYZus{}counts}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}195}]:} \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}final}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}166}]:} \PY{c+c1}{\PYZsh{}writing into the csv file}
+          \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CEW\PYZus{}predicted\PYZus{}count.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{sep} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{selecting weather dataframe within the date range - ECB
+Pest}\label{selecting-weather-dataframe-within-the-date-range---ecb-pest}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}177}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}ecb\PYZus{}STdate}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}ecb\PYZus{}ENDdate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2006-06-19 00:00:00
+2018-10-15 00:00:00
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}178}]:} \PY{n}{df\PYZus{}equation\PYZus{}ECB} \PY{o}{=} \PY{n}{df\PYZus{}equation}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{search\PYZus{}ecb\PYZus{}STdate}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{search\PYZus{}ecb\PYZus{}ENDdate}\PY{p}{)}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}179}]:} \PY{c+c1}{\PYZsh{}need to get all the columns from here and sum up fro every week }
+          \PY{c+c1}{\PYZsh{}select date and each column, and find the average for each column}
+          \PY{n}{df\PYZus{}tempf\PYZus{}ECB} \PY{o}{=} \PY{n}{df\PYZus{}equation\PYZus{}ECB}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tmpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dwpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{df\PYZus{}tempf\PYZus{}ECB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tmpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf\PYZus{}ECB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tmpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}tempf\PYZus{}ECB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dwpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf\PYZus{}ECB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dwpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}tempf\PYZus{}ECB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{drct}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf\PYZus{}ECB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{drct}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}tempf\PYZus{}ECB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{feel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf\PYZus{}ECB}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{feel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}180}]:} \PY{c+c1}{\PYZsh{}calling getweekly\PYZus{}temperature}
+          \PY{n}{ECB\PYZus{}weather\PYZus{}data\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          \PY{n}{getweekly\PYZus{}temperature}\PY{p}{(}\PY{n}{df\PYZus{}tempf\PYZus{}ECB}\PY{p}{,}\PY{n}{ECB\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+total temperature index  642
+total weeks:  47922
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}182}]:} \PY{n}{df\PYZus{}ECB\PYZus{}weather} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ECB\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}189}]:} \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}190}]:} \PY{c+c1}{\PYZsh{}combining weather data and pest count data based on the date \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+          \PY{c+c1}{\PYZsh{}creating data frame needed for equation}
+          \PY{n}{df\PYZus{}ECB\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}ECB\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df\PYZus{}ECB\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}ECB\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+          \PY{n}{df\PYZus{}ECB\PYZus{}final} \PY{o}{=} \PY{n}{df\PYZus{}ECB}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}ECB\PYZus{}weather}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}191}]:} \PY{n}{df\PYZus{}ECB\PYZus{}final}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}191}]:}            farm  trap\_count  year        date      tempf       dwpf  \textbackslash{}
+          0  Litchfield-W          16  2006  2006-06-19  70.977613  63.913169   
+          1      Hollis-B           7  2006  2006-06-19  70.977613  63.913169   
+          2       Mason-B          11  2006  2006-06-19  70.977613  63.913169   
+          3  Litchfield-W          25  2006  2006-06-26  71.243468  65.095887   
+          4      Hollis-B          31  2006  2006-06-26  71.243468  65.095887   
+          
+                  drct       feel  
+          0  63.703704  71.301399  
+          1  63.703704  71.301399  
+          2  63.703704  71.301399  
+          3  84.233871  71.733347  
+          4  84.233871  71.733347  
+\end{Verbatim}
+            
+    \section{predicting trap counts :::: ECB
+pest}\label{predicting-trap-counts-ecb-pest}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}192}]:} \PY{c+c1}{\PYZsh{}creating training and testign dataset }
+          \PY{n}{mask\PYZus{}ecb} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}ECB\PYZus{}final}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.8}
+          \PY{n}{df\PYZus{}train\PYZus{}ECB} \PY{o}{=} \PY{n}{df\PYZus{}ECB\PYZus{}final}\PY{p}{[}\PY{n}{mask\PYZus{}ecb}\PY{p}{]}
+          \PY{n}{df\PYZus{}test\PYZus{}ECB} \PY{o}{=} \PY{n}{df\PYZus{}ECB\PYZus{}final}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{mask\PYZus{}ecb}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}194}]:} \PY{n}{expr\PYZus{}ECB} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{trap\PYZus{}count \PYZti{} tempf + dwpf + drct + feel}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}197}]:} \PY{c+c1}{\PYZsh{}Set up the X and y matrices}
+          \PY{n}{y\PYZus{}train\PYZus{}ecb}\PY{p}{,} \PY{n}{X\PYZus{}train\PYZus{}ecb} \PY{o}{=} \PY{n}{dmatrices}\PY{p}{(}\PY{n}{expr\PYZus{}ECB}\PY{p}{,} \PY{n}{df\PYZus{}ECB\PYZus{}final}\PY{p}{,} \PY{n}{return\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataframe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{y\PYZus{}test\PYZus{}ecb}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}ecb} \PY{o}{=} \PY{n}{dmatrices}\PY{p}{(}\PY{n}{expr\PYZus{}ECB}\PY{p}{,} \PY{n}{df\PYZus{}ECB\PYZus{}final}\PY{p}{,} \PY{n}{return\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataframe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}199}]:} \PY{c+c1}{\PYZsh{}Using the statsmodels GLM class, train the Poisson regression model on the training data set.}
+          \PY{n}{poisson\PYZus{}training\PYZus{}results\PYZus{}ecb} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{GLM}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}ecb}\PY{p}{,} \PY{n}{X\PYZus{}train\PYZus{}ecb}\PY{p}{,} \PY{n}{family}\PY{o}{=}\PY{n}{sm}\PY{o}{.}\PY{n}{families}\PY{o}{.}\PY{n}{Poisson}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}200}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{poisson\PYZus{}training\PYZus{}results\PYZus{}ecb}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                 4020
+Model:                            GLM   Df Residuals:                     4015
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -20982.
+Date:                Sun, 05 Apr 2020   Deviance:                       36540.
+Time:                        23:28:44   Pearson chi2:                 8.28e+04
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      1.2365      0.070     17.763      0.000       1.100       1.373
+tempf         -0.0035      0.004     -0.925      0.355      -0.011       0.004
+dwpf           0.0308      0.004      7.917      0.000       0.023       0.038
+drct          -0.0022      0.000     -5.133      0.000      -0.003      -0.001
+feel          -0.0221      0.002    -10.177      0.000      -0.026      -0.018
+==============================================================================
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}202}]:} \PY{c+c1}{\PYZsh{}Make some predictions on the test data set.}
+          \PY{n}{poisson\PYZus{}predictions\PYZus{}ecb} \PY{o}{=} \PY{n}{poisson\PYZus{}training\PYZus{}results\PYZus{}ecb}\PY{o}{.}\PY{n}{get\PYZus{}prediction}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}ecb}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}203}]:} \PY{c+c1}{\PYZsh{}.summary\PYZus{}frame() returns a pandas DataFrame}
+          \PY{n}{predictions\PYZus{}summary\PYZus{}frame\PYZus{}ecb} \PY{o}{=} \PY{n}{poisson\PYZus{}predictions\PYZus{}ecb}\PY{o}{.}\PY{n}{summary\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{predictions\PYZus{}summary\PYZus{}frame\PYZus{}ecb}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+          mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+0     3.484824  0.060365       3.368497       3.605168
+1     3.484824  0.060365       3.368497       3.605168
+2     3.484824  0.060365       3.368497       3.605168
+3     3.420675  0.049845       3.324362       3.519779
+4     3.420675  0.049845       3.324362       3.519779
+5     3.420675  0.049845       3.324362       3.519779
+6     2.625314  0.040086       2.547910       2.705069
+7     2.625314  0.040086       2.547910       2.705069
+8     2.625314  0.040086       2.547910       2.705069
+9     3.686626  0.071031       3.550004       3.828506
+10    3.686626  0.071031       3.550004       3.828506
+11    3.686626  0.071031       3.550004       3.828506
+12    3.244769  0.050942       3.146445       3.346165
+13    3.244769  0.050942       3.146445       3.346165
+14    3.244769  0.050942       3.146445       3.346165
+15    3.111367  0.057636       3.000428       3.226408
+16    3.111367  0.057636       3.000428       3.226408
+17    3.111367  0.057636       3.000428       3.226408
+18    2.909125  0.040040       2.831697       2.988670
+19    2.909125  0.040040       2.831697       2.988670
+20    2.909125  0.040040       2.831697       2.988670
+21    2.155955  0.067482       2.027669       2.292358
+22    2.155955  0.067482       2.027669       2.292358
+23    2.155955  0.067482       2.027669       2.292358
+24    2.958304  0.050285       2.861370       3.058521
+25    2.958304  0.050285       2.861370       3.058521
+26    2.958304  0.050285       2.861370       3.058521
+27    3.267339  0.039274       3.191264       3.345228
+28    3.267339  0.039274       3.191264       3.345228
+29    3.267339  0.039274       3.191264       3.345228
+{\ldots}        {\ldots}       {\ldots}            {\ldots}            {\ldots}
+3990  2.797668  0.081575       2.642266       2.962210
+3991  2.797668  0.081575       2.642266       2.962210
+3992  2.797668  0.081575       2.642266       2.962210
+3993  2.797668  0.081575       2.642266       2.962210
+3994  2.797668  0.081575       2.642266       2.962210
+3995  2.797668  0.081575       2.642266       2.962210
+3996  2.785602  0.085558       2.622859       2.958443
+3997  2.785602  0.085558       2.622859       2.958443
+3998  2.785602  0.085558       2.622859       2.958443
+3999  2.785602  0.085558       2.622859       2.958443
+4000  2.785602  0.085558       2.622859       2.958443
+4001  2.785602  0.085558       2.622859       2.958443
+4002  2.785602  0.085558       2.622859       2.958443
+4003  2.785602  0.085558       2.622859       2.958443
+4004  2.785602  0.085558       2.622859       2.958443
+4005  2.785602  0.085558       2.622859       2.958443
+4006  2.785602  0.085558       2.622859       2.958443
+4007  2.785602  0.085558       2.622859       2.958443
+4008  2.785602  0.085558       2.622859       2.958443
+4009  2.785602  0.085558       2.622859       2.958443
+4010  2.785602  0.085558       2.622859       2.958443
+4011  2.785602  0.085558       2.622859       2.958443
+4012  2.785602  0.085558       2.622859       2.958443
+4013  2.481624  0.074581       2.339670       2.632191
+4014  2.481624  0.074581       2.339670       2.632191
+4015  2.481624  0.074581       2.339670       2.632191
+4016  2.481624  0.074581       2.339670       2.632191
+4017  2.481624  0.074581       2.339670       2.632191
+4018  2.481624  0.074581       2.339670       2.632191
+4019  2.481624  0.074581       2.339670       2.632191
+
+[4020 rows x 4 columns]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}204}]:} \PY{n}{predicted\PYZus{}counts\PYZus{}ecb}\PY{o}{=}\PY{n}{predictions\PYZus{}summary\PYZus{}frame\PYZus{}ecb}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{actual\PYZus{}counts\PYZus{}ecb} \PY{o}{=} \PY{n}{y\PYZus{}test\PYZus{}ecb}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}241}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{predicted\PYZus{}counts\PYZus{}ecb}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0       3.484824
+1       3.484824
+2       3.484824
+3       3.420675
+4       3.420675
+5       3.420675
+6       2.625314
+7       2.625314
+8       2.625314
+9       3.686626
+10      3.686626
+11      3.686626
+12      3.244769
+13      3.244769
+14      3.244769
+15      3.111367
+16      3.111367
+17      3.111367
+18      2.909125
+19      2.909125
+20      2.909125
+21      2.155955
+22      2.155955
+23      2.155955
+24      2.958304
+25      2.958304
+26      2.958304
+27      3.267339
+28      3.267339
+29      3.267339
+          {\ldots}   
+3990    2.797668
+3991    2.797668
+3992    2.797668
+3993    2.797668
+3994    2.797668
+3995    2.797668
+3996    2.785602
+3997    2.785602
+3998    2.785602
+3999    2.785602
+4000    2.785602
+4001    2.785602
+4002    2.785602
+4003    2.785602
+4004    2.785602
+4005    2.785602
+4006    2.785602
+4007    2.785602
+4008    2.785602
+4009    2.785602
+4010    2.785602
+4011    2.785602
+4012    2.785602
+4013    2.481624
+4014    2.481624
+4015    2.481624
+4016    2.481624
+4017    2.481624
+4018    2.481624
+4019    2.481624
+Name: mean, Length: 4020, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}206}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{actual\PYZus{}counts\PYZus{}ecb}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0       16.0
+1        7.0
+2       11.0
+3       25.0
+4       31.0
+5        7.0
+6        3.0
+7        4.0
+8        1.0
+9       12.0
+10       0.0
+11       0.0
+12       4.0
+13       3.0
+14       0.0
+15       5.0
+16      24.0
+17       1.0
+18      13.0
+19      34.0
+20       5.0
+21      17.0
+22      60.0
+23       1.0
+24       1.0
+25      12.0
+26       0.0
+27       1.0
+28       2.0
+29       1.0
+        {\ldots} 
+3990     0.0
+3991     0.0
+3992     0.0
+3993     0.0
+3994     0.0
+3995     0.0
+3996     0.0
+3997     5.0
+3998     0.0
+3999     0.0
+4000     0.0
+4001     0.0
+4002     0.0
+4003     8.0
+4004     0.0
+4005     0.0
+4006     0.0
+4007     0.0
+4008     0.0
+4009     0.0
+4010     0.0
+4011     0.0
+4012     0.0
+4013     0.0
+4014     0.0
+4015     0.0
+4016     0.0
+4017     0.0
+4018     0.0
+4019     0.0
+Name: trap\_count, Length: 4020, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}208}]:} \PY{c+c1}{\PYZsh{}Mlot the predicted counts versus the actual counts for the test data.}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted versus actual ECB pest counts }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{predicted}\PY{p}{,} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}ecb}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{predicted\PYZus{}counts\PYZus{}ecb}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{actual}\PY{p}{,} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}ecb}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{actual\PYZus{}counts\PYZus{}ecb}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{o}{=}\PY{p}{[}\PY{n}{predicted}\PY{p}{,} \PY{n}{actual}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_85_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}210}]:} \PY{n}{df\PYZus{}ECB\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted\PYZus{}counts\PYZus{}ecb}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{predicted\PYZus{}counts\PYZus{}ecb}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}211}]:} \PY{c+c1}{\PYZsh{}writing into the csv file}
+          \PY{n}{df\PYZus{}ECB\PYZus{}final}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ECB\PYZus{}predicted\PYZus{}count.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{sep} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \section{selecting weather dataframe within the date range - FAW
+Pest}\label{selecting-weather-dataframe-within-the-date-range---faw-pest}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}224}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}faw\PYZus{}STdate}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}faw\PYZus{}ENDdate}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+2006-06-19 00:00:00
+2018-10-15 00:00:00
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}225}]:} \PY{n}{df\PYZus{}equation\PYZus{}FAW} \PY{o}{=} \PY{n}{df\PYZus{}equation}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{search\PYZus{}faw\PYZus{}STdate}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{search\PYZus{}faw\PYZus{}ENDdate}\PY{p}{)}\PY{p}{,} \PY{p}{:}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}226}]:} \PY{c+c1}{\PYZsh{}need to get all the columns from here and sum up fro every week }
+          \PY{c+c1}{\PYZsh{}select date and each column, and find the average for each column}
+          \PY{n}{df\PYZus{}tempf\PYZus{}FAW} \PY{o}{=} \PY{n}{df\PYZus{}equation\PYZus{}FAW}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tmpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dwpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+          \PY{n}{df\PYZus{}tempf\PYZus{}FAW}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tmpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf\PYZus{}FAW}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tmpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}tempf\PYZus{}FAW}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dwpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf\PYZus{}FAW}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{dwpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}tempf\PYZus{}FAW}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{drct}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf\PYZus{}FAW}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{drct}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+          \PY{n}{df\PYZus{}tempf\PYZus{}FAW}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{feel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf\PYZus{}FAW}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{feel}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}227}]:} \PY{c+c1}{\PYZsh{}calling getweekly\PYZus{}temperature}
+          \PY{n}{FAW\PYZus{}weather\PYZus{}data\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+          \PY{n}{getweekly\PYZus{}temperature}\PY{p}{(}\PY{n}{df\PYZus{}tempf\PYZus{}FAW}\PY{p}{,}\PY{n}{FAW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+total temperature index  642
+total weeks:  47922
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}228}]:} \PY{n}{df\PYZus{}FAW\PYZus{}weather} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{FAW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}229}]:} \PY{c+c1}{\PYZsh{}convert orginal faw date into correct dataframe date}
+          \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}230}]:} \PY{c+c1}{\PYZsh{}combining weather data and pest count data based on the date \PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}
+          \PY{c+c1}{\PYZsh{}creating data frame needed for equation}
+          \PY{n}{df\PYZus{}FAW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}FAW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+          \PY{n}{df\PYZus{}FAW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}FAW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+          \PY{n}{df\PYZus{}FAW\PYZus{}final} \PY{o}{=} \PY{n}{df\PYZus{}FAW}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}FAW\PYZus{}weather}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}232}]:} \PY{n}{df\PYZus{}FAW\PYZus{}final}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}232}]:}            farm  trap\_count  year        date      tempf       dwpf  \textbackslash{}
+          0      Pelham-G           0  2006  2006-06-19  70.977613  63.913169   
+          1  Litchfield-W           0  2006  2006-06-19  70.977613  63.913169   
+          2  Litchfield-M           0  2006  2006-06-19  70.977613  63.913169   
+          3   Merrimack-T           0  2006  2006-06-19  70.977613  63.913169   
+          4      Hollis-L           0  2006  2006-06-19  70.977613  63.913169   
+          
+                  drct       feel  
+          0  63.703704  71.301399  
+          1  63.703704  71.301399  
+          2  63.703704  71.301399  
+          3  63.703704  71.301399  
+          4  63.703704  71.301399  
+\end{Verbatim}
+            
+    \section{predicting trap counts :::: FAW
+pest}\label{predicting-trap-counts-faw-pest}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}233}]:} \PY{c+c1}{\PYZsh{}creating training and testign dataset }
+          \PY{n}{mask\PYZus{}faw} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}FAW\PYZus{}final}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.8}
+          \PY{n}{df\PYZus{}train\PYZus{}FAW} \PY{o}{=} \PY{n}{df\PYZus{}FAW\PYZus{}final}\PY{p}{[}\PY{n}{mask\PYZus{}faw}\PY{p}{]}
+          \PY{n}{df\PYZus{}test\PYZus{}FAW} \PY{o}{=} \PY{n}{df\PYZus{}FAW\PYZus{}final}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{mask\PYZus{}faw}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}234}]:} \PY{n}{expr\PYZus{}FAW} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{trap\PYZus{}count \PYZti{} tempf + dwpf + drct + feel}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}235}]:} \PY{c+c1}{\PYZsh{}Set up the X and y matrices}
+          \PY{n}{y\PYZus{}train\PYZus{}faw}\PY{p}{,} \PY{n}{X\PYZus{}train\PYZus{}faw} \PY{o}{=} \PY{n}{dmatrices}\PY{p}{(}\PY{n}{expr\PYZus{}FAW}\PY{p}{,} \PY{n}{df\PYZus{}FAW\PYZus{}final}\PY{p}{,} \PY{n}{return\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataframe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{y\PYZus{}test\PYZus{}faw}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}faw} \PY{o}{=} \PY{n}{dmatrices}\PY{p}{(}\PY{n}{expr\PYZus{}FAW}\PY{p}{,} \PY{n}{df\PYZus{}FAW\PYZus{}final}\PY{p}{,} \PY{n}{return\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataframe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}236}]:} \PY{c+c1}{\PYZsh{}Using the statsmodels GLM class, train the Poisson regression model on the training data set.}
+          \PY{n}{poisson\PYZus{}training\PYZus{}results\PYZus{}faw} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{GLM}\PY{p}{(}\PY{n}{y\PYZus{}train\PYZus{}faw}\PY{p}{,} \PY{n}{X\PYZus{}train\PYZus{}faw}\PY{p}{,} \PY{n}{family}\PY{o}{=}\PY{n}{sm}\PY{o}{.}\PY{n}{families}\PY{o}{.}\PY{n}{Poisson}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}237}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{poisson\PYZus{}training\PYZus{}results\PYZus{}faw}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                 2634
+Model:                            GLM   Df Residuals:                     2629
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -13336.
+Date:                Mon, 06 Apr 2020   Deviance:                       23704.
+Time:                        08:28:51   Pearson chi2:                 7.29e+04
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      1.0710      0.084     12.699      0.000       0.906       1.236
+tempf          0.0774      0.011      7.154      0.000       0.056       0.099
+dwpf          -0.1255      0.005    -25.234      0.000      -0.135      -0.116
+drct          -0.0004      0.001     -0.773      0.440      -0.001       0.001
+feel           0.0298      0.010      2.952      0.003       0.010       0.050
+==============================================================================
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}238}]:} \PY{c+c1}{\PYZsh{}Make some predictions on the test data set.}
+          \PY{n}{poisson\PYZus{}predictions\PYZus{}faw} \PY{o}{=} \PY{n}{poisson\PYZus{}training\PYZus{}results\PYZus{}faw}\PY{o}{.}\PY{n}{get\PYZus{}prediction}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}faw}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}239}]:} \PY{c+c1}{\PYZsh{}.summary\PYZus{}frame() returns a pandas DataFrame}
+          \PY{n}{predictions\PYZus{}summary\PYZus{}frame\PYZus{}faw} \PY{o}{=} \PY{n}{poisson\PYZus{}predictions\PYZus{}faw}\PY{o}{.}\PY{n}{summary\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{predictions\PYZus{}summary\PYZus{}frame\PYZus{}faw}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+          mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+0     1.901839  0.048888       1.808393       2.000113
+1     1.901839  0.048888       1.808393       2.000113
+2     1.901839  0.048888       1.808393       2.000113
+3     1.901839  0.048888       1.808393       2.000113
+4     1.901839  0.048888       1.808393       2.000113
+5     1.901839  0.048888       1.808393       2.000113
+6     1.901839  0.048888       1.808393       2.000113
+7     1.901839  0.048888       1.808393       2.000113
+8     1.901839  0.048888       1.808393       2.000113
+9     1.901839  0.048888       1.808393       2.000113
+10    1.901839  0.048888       1.808393       2.000113
+11    1.681121  0.038086       1.608107       1.757450
+12    1.681121  0.038086       1.608107       1.757450
+13    1.681121  0.038086       1.608107       1.757450
+14    1.681121  0.038086       1.608107       1.757450
+15    1.681121  0.038086       1.608107       1.757450
+16    1.681121  0.038086       1.608107       1.757450
+17    1.681121  0.038086       1.608107       1.757450
+18    1.681121  0.038086       1.608107       1.757450
+19    1.681121  0.038086       1.608107       1.757450
+20    1.681121  0.038086       1.608107       1.757450
+21    1.681121  0.038086       1.608107       1.757450
+22    3.362671  0.057343       3.252139       3.476960
+23    3.362671  0.057343       3.252139       3.476960
+24    3.362671  0.057343       3.252139       3.476960
+25    3.362671  0.057343       3.252139       3.476960
+26    3.362671  0.057343       3.252139       3.476960
+27    3.362671  0.057343       3.252139       3.476960
+28    3.362671  0.057343       3.252139       3.476960
+29    3.362671  0.057343       3.252139       3.476960
+{\ldots}        {\ldots}       {\ldots}            {\ldots}            {\ldots}
+2604  2.568579  0.090812       2.396617       2.752880
+2605  2.568579  0.090812       2.396617       2.752880
+2606  2.566849  0.089726       2.396879       2.748873
+2607  2.566849  0.089726       2.396879       2.748873
+2608  2.566849  0.089726       2.396879       2.748873
+2609  2.566849  0.089726       2.396879       2.748873
+2610  2.566849  0.089726       2.396879       2.748873
+2611  2.566849  0.089726       2.396879       2.748873
+2612  2.566849  0.089726       2.396879       2.748873
+2613  2.566849  0.089726       2.396879       2.748873
+2614  2.566849  0.089726       2.396879       2.748873
+2615  2.566849  0.089726       2.396879       2.748873
+2616  2.566849  0.089726       2.396879       2.748873
+2617  2.566849  0.089726       2.396879       2.748873
+2618  2.566849  0.089726       2.396879       2.748873
+2619  2.566849  0.089726       2.396879       2.748873
+2620  2.566849  0.089726       2.396879       2.748873
+2621  2.566849  0.089726       2.396879       2.748873
+2622  2.566849  0.089726       2.396879       2.748873
+2623  2.566849  0.089726       2.396879       2.748873
+2624  2.479989  0.080162       2.327747       2.642188
+2625  2.479989  0.080162       2.327747       2.642188
+2626  2.479989  0.080162       2.327747       2.642188
+2627  2.479989  0.080162       2.327747       2.642188
+2628  2.479989  0.080162       2.327747       2.642188
+2629  2.479989  0.080162       2.327747       2.642188
+2630  2.479989  0.080162       2.327747       2.642188
+2631  2.479989  0.080162       2.327747       2.642188
+2632  2.479989  0.080162       2.327747       2.642188
+2633  2.479989  0.080162       2.327747       2.642188
+
+[2634 rows x 4 columns]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}240}]:} \PY{n}{predicted\PYZus{}counts\PYZus{}faw}\PY{o}{=}\PY{n}{predictions\PYZus{}summary\PYZus{}frame\PYZus{}faw}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          \PY{n}{actual\PYZus{}counts\PYZus{}faw} \PY{o}{=} \PY{n}{y\PYZus{}test\PYZus{}faw}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}242}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{predicted\PYZus{}counts\PYZus{}faw}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0       1.901839
+1       1.901839
+2       1.901839
+3       1.901839
+4       1.901839
+5       1.901839
+6       1.901839
+7       1.901839
+8       1.901839
+9       1.901839
+10      1.901839
+11      1.681121
+12      1.681121
+13      1.681121
+14      1.681121
+15      1.681121
+16      1.681121
+17      1.681121
+18      1.681121
+19      1.681121
+20      1.681121
+21      1.681121
+22      3.362671
+23      3.362671
+24      3.362671
+25      3.362671
+26      3.362671
+27      3.362671
+28      3.362671
+29      3.362671
+          {\ldots}   
+2604    2.568579
+2605    2.568579
+2606    2.566849
+2607    2.566849
+2608    2.566849
+2609    2.566849
+2610    2.566849
+2611    2.566849
+2612    2.566849
+2613    2.566849
+2614    2.566849
+2615    2.566849
+2616    2.566849
+2617    2.566849
+2618    2.566849
+2619    2.566849
+2620    2.566849
+2621    2.566849
+2622    2.566849
+2623    2.566849
+2624    2.479989
+2625    2.479989
+2626    2.479989
+2627    2.479989
+2628    2.479989
+2629    2.479989
+2630    2.479989
+2631    2.479989
+2632    2.479989
+2633    2.479989
+Name: mean, Length: 2634, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}243}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{actual\PYZus{}counts\PYZus{}faw}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0        0.0
+1        0.0
+2        0.0
+3        0.0
+4        0.0
+5        0.0
+6        0.0
+7        0.0
+8        0.0
+9        0.0
+10       0.0
+11       0.0
+12       0.0
+13       0.0
+14       0.0
+15       0.0
+16       0.0
+17       0.0
+18       0.0
+19       0.0
+20       0.0
+21       0.0
+22       0.0
+23       0.0
+24       0.0
+25       0.0
+26       0.0
+27       0.0
+28       0.0
+29       0.0
+        {\ldots} 
+2604     1.0
+2605     0.0
+2606     5.0
+2607    16.0
+2608    32.0
+2609     0.0
+2610     2.0
+2611     0.0
+2612     0.0
+2613     2.0
+2614    22.0
+2615    10.0
+2616     0.0
+2617     0.0
+2618     0.0
+2619     1.0
+2620     2.0
+2621     0.0
+2622     1.0
+2623     0.0
+2624     0.0
+2625     2.0
+2626     0.0
+2627     0.0
+2628     0.0
+2629     2.0
+2630     0.0
+2631     2.0
+2632     0.0
+2633     0.0
+Name: trap\_count, Length: 2634, dtype: float64
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}245}]:} \PY{c+c1}{\PYZsh{}Mlot the predicted counts versus the actual counts for the test data.}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted versus actual FAW pest counts }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{predicted}\PY{p}{,} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}faw}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{predicted\PYZus{}counts\PYZus{}faw}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{actual}\PY{p}{,} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}faw}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{actual\PYZus{}counts\PYZus{}faw}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{o}{=}\PY{p}{[}\PY{n}{predicted}\PY{p}{,} \PY{n}{actual}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_108_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}246}]:} \PY{n}{df\PYZus{}FAW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted\PYZus{}counts\PYZus{}faw}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{predicted\PYZus{}counts\PYZus{}faw}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}247}]:} \PY{c+c1}{\PYZsh{}writing into the csv file}
+          \PY{n}{df\PYZus{}FAW\PYZus{}final}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{FAW\PYZus{}predicted\PYZus{}count.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{sep} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}
