@@ -141,7 +141,7 @@
     \def\gt{>}
     \def\lt{<}
     % Document parameters
-    \title{PossionRegression}
+    \title{RamGautam\_Project}
     
     
     
@@ -280,46 +280,150 @@
     
 
     
+    \section{Predicting Pest Counts - NH
+farms}\label{predicting-pest-counts---nh-farms}
+
+    \section{Ram Gautam}\label{ram-gautam}
+
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor} }]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} 
-        \PY{k+kn}{from} \PY{n+nn}{patsy} \PY{k}{import} \PY{n}{dmatrices}
-        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
-        \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
-        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+{\color{incolor}In [{\color{incolor}356}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd} 
+          \PY{k+kn}{from} \PY{n+nn}{patsy} \PY{k}{import} \PY{n}{dmatrices}
+          \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+          \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+          \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}111}]:} \PY{c+c1}{\PYZsh{}reading the data frame}
+{\color{incolor}In [{\color{incolor}357}]:} \PY{k+kn}{import}  \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{model\PYZus{}selection} \PY{k}{import} \PY{n}{train\PYZus{}test\PYZus{}split}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{linear\PYZus{}model} \PY{k}{import} \PY{n}{LinearRegression}
+          \PY{k+kn}{from} \PY{n+nn}{sklearn} \PY{k}{import} \PY{n}{metrics}
+\end{Verbatim}
+
+
+    \section{1. Multiple Linear
+Regression}\label{multiple-linear-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}358}]:} \PY{k}{def} \PY{n+nf}{Multiple\PYZus{}Linear\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}LinearRegression}\PY{p}{)}\PY{p}{:}
+              \PY{c+c1}{\PYZsh{}print (df\PYZus{}CEW\PYZus{}final.head())}
+              \PY{c+c1}{\PYZsh{}print(\PYZdq{}Calling Multiple Linear Regression Modle\PYZdq{})}
+              \PY{c+c1}{\PYZsh{}print(sns.distplot(df\PYZus{}CEW\PYZus{}final[\PYZsq{}trap\PYZus{}count\PYZsq{}]))}
+              \PY{n}{X\PYZus{}LR} \PY{o}{=} \PY{n}{df\PYZus{}LinearRegression}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tempf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dwpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+              \PY{n}{y\PYZus{}LR} \PY{o}{=} \PY{n}{df\PYZus{}LinearRegression}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              
+              \PY{c+c1}{\PYZsh{}splitting data into training and testing data}
+              \PY{n}{X\PYZus{}train\PYZus{}lm}\PY{p}{,} \PY{n}{X\PYZus{}test\PYZus{}lm}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}lm}\PY{p}{,}\PY{n}{y\PYZus{}test\PYZus{}lm} \PY{o}{=} \PY{n}{train\PYZus{}test\PYZus{}split}\PY{p}{(}\PY{n}{X\PYZus{}LR}\PY{p}{,}\PY{n}{y\PYZus{}LR}\PY{p}{,} \PY{n}{test\PYZus{}size} \PY{o}{=} \PY{l+m+mf}{0.2}\PY{p}{,} \PY{n}{random\PYZus{}state} \PY{o}{=} \PY{l+m+mi}{101}\PY{p}{)}
+              \PY{c+c1}{\PYZsh{}traing the data into the model}
+              \PY{n}{regressionModel} \PY{o}{=} \PY{n}{LinearRegression}\PY{p}{(}\PY{p}{)}
+              \PY{n}{regressionModel}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{n}{X\PYZus{}train\PYZus{}lm}\PY{p}{,} \PY{n}{y\PYZus{}train\PYZus{}lm}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}get the intercept}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Intercept: }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{regressionModel}\PY{o}{.}\PY{n}{intercept\PYZus{}}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}get the coeffecients}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Coeffecients }\PY{l+s+s2}{\PYZdq{}} \PY{p}{,} \PY{n}{regressionModel}\PY{o}{.}\PY{n}{coef\PYZus{}}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}do the predictions \PYZhy{} we need to pass the featuress that the model never seen before}
+              \PY{n}{predictions} \PY{o}{=} \PY{n}{regressionModel}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}test\PYZus{}lm}\PY{p}{)}
+              \PY{n}{predictions\PYZus{}ret} \PY{o}{=} \PY{n}{regressionModel}\PY{o}{.}\PY{n}{predict}\PY{p}{(}\PY{n}{X\PYZus{}LR}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{predictions}\PY{o}{.}\PY{n}{shape}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}print(y\PYZus{}test\PYZus{}lm)}
+              
+              \PY{c+c1}{\PYZsh{}cheking with the sctter plot }
+              \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}lm} \PY{p}{,} \PY{n}{predictions}\PY{p}{)}
+              
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{} Linear Regression Evaluations\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}\PYZhy{}}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Absolute Error (MAE): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}absolute\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}lm} \PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Mean Squared Eror (MSE): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}lm} \PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Root Mean Squared Eror (RMSE): }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{np}\PY{o}{.}\PY{n}{sqrt}\PY{p}{(}\PY{n}{metrics}\PY{o}{.}\PY{n}{mean\PYZus{}squared\PYZus{}error}\PY{p}{(}\PY{n}{y\PYZus{}test\PYZus{}lm} \PY{p}{,} \PY{n}{predictions}\PY{p}{)}\PY{p}{)}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}sns.distplot((y\PYZus{}test\PYZus{}lm \PYZhy{} predictions))}
+              \PY{n}{df\PYZus{}LinearRegression}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{regression\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{predictions\PYZus{}ret}
+              
+              \PY{k}{return} \PY{n}{df\PYZus{}LinearRegression}
+\end{Verbatim}
+
+
+    \section{2. Poisson Regression}\label{poisson-regression}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}456}]:} \PY{k}{def} \PY{n+nf}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}Poisson\PYZus{}Regression}\PY{p}{,} \PY{n}{pest}\PY{p}{,} \PY{n}{farm}\PY{p}{)}\PY{p}{:}
+              
+              \PY{n}{equation} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{trap\PYZus{}count \PYZti{} tempf + dwpf + drct + feel}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+              
+              \PY{c+c1}{\PYZsh{}setting up trainig and testing data set}
+              \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{dmatrices}\PY{p}{(}\PY{n}{equation}\PY{p}{,} \PY{n}{df\PYZus{}Poisson\PYZus{}Regression}\PY{p}{,} \PY{n}{return\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataframe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{dmatrices}\PY{p}{(}\PY{n}{equation}\PY{p}{,} \PY{n}{df\PYZus{}Poisson\PYZus{}Regression}\PY{p}{,} \PY{n}{return\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataframe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}setting up poission regression modle}
+              \PY{n}{poisson\PYZus{}training\PYZus{}results} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{GLM}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{family}\PY{o}{=}\PY{n}{sm}\PY{o}{.}\PY{n}{families}\PY{o}{.}\PY{n}{Poisson}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}making the summary of Poisson Regression}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{poisson\PYZus{}training\PYZus{}results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}predictions of the rsults}
+              \PY{n}{poisson\PYZus{}predictions} \PY{o}{=} \PY{n}{poisson\PYZus{}training\PYZus{}results}\PY{o}{.}\PY{n}{get\PYZus{}prediction}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+              
+              \PY{n}{predictions\PYZus{}summary\PYZus{}frame} \PY{o}{=} \PY{n}{poisson\PYZus{}predictions}\PY{o}{.}\PY{n}{summary\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+              \PY{n+nb}{print}\PY{p}{(}\PY{n}{predictions\PYZus{}summary\PYZus{}frame}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}the original count from the data frame }
+              \PY{n}{actual\PYZus{}counts} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              
+              \PY{c+c1}{\PYZsh{}the predicted poission count}
+              \PY{n}{poisson\PYZus{}count} \PY{o}{=} \PY{n}{predictions\PYZus{}summary\PYZus{}frame}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+              
+              \PY{c+c1}{\PYZsh{}making scatter plot here }
+              \PY{n}{plt}\PY{o}{.}\PY{n}{clf}\PY{p}{(}\PY{p}{)}
+              \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+              \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Poisson Regression Scatter plot}\PY{l+s+s1}{\PYZsq{}} \PY{o}{+} \PY{n}{pest} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ on }\PY{l+s+s2}{\PYZdq{}} \PY{o}{+} \PY{n}{farm} \PY{o}{+} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Farm}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{poisson\PYZus{}count}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{actual\PYZus{}counts}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Poisson counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+              \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+              
+              \PY{c+c1}{\PYZsh{}assigning the poission count here \PYZhy{}\PYZhy{} }
+              \PY{n}{df\PYZus{}Poisson\PYZus{}Regression}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poisson\PYZus{}count\PYZus{}farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{poisson\PYZus{}count}
+              
+              \PY{k}{return} \PY{n}{df\PYZus{}Poisson\PYZus{}Regression}
+              
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}457}]:} \PY{c+c1}{\PYZsh{}reading the data frame}
           \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{pest\PYZus{}traps.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{,} \PY{n}{infer\PYZus{}datetime\PYZus{}format}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{parse\PYZus{}dates}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,} \PY{n}{index\PYZus{}col}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}112}]:} \PY{n}{df}\PY{o}{.}\PY{n}{shape}
+{\color{incolor}In [{\color{incolor}458}]:} \PY{n}{df}\PY{o}{.}\PY{n}{shape}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}112}]:} (12434, 7)
+{\color{outcolor}Out[{\color{outcolor}458}]:} (12434, 7)
 \end{Verbatim}
             
     \section{Building dataframe for the pest
 CEW}\label{building-dataframe-for-the-pest-cew}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}113}]:} \PY{c+c1}{\PYZsh{}dividing the dataframe based on each pests \PYZhy{} pest CEW}
+{\color{incolor}In [{\color{incolor}362}]:} \PY{c+c1}{\PYZsh{}dividing the dataframe based on each pests \PYZhy{} pest CEW}
           \PY{n}{df\PYZus{}CEW} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CEW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}114}]:} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}363}]:} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}114}]:}               farm  trap\_count  year      date
+{\color{outcolor}Out[{\color{outcolor}363}]:}               farm  trap\_count  year      date
           pest                                          
           CEW       Pelham-G           0  2006  20060619
           CEW   Litchfield-W           0  2006  20060619
@@ -329,12 +433,12 @@ CEW}\label{building-dataframe-for-the-pest-cew}
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}115}]:} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}364}]:} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}115}]:}            farm  trap\_count  year      date
+{\color{outcolor}Out[{\color{outcolor}364}]:}            farm  trap\_count  year      date
           pest                                       
           CEW    Hollis-K           3  2018  20181008
           CEW   Hollis-B2           0  2018  20181008
@@ -344,16 +448,16 @@ CEW}\label{building-dataframe-for-the-pest-cew}
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}116}]:} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{shape}
+{\color{incolor}In [{\color{incolor}365}]:} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{shape}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}116}]:} (3626, 4)
+{\color{outcolor}Out[{\color{outcolor}365}]:} (3626, 4)
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}117}]:} \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{date} 
+{\color{incolor}In [{\color{incolor}366}]:} \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{date} 
           
           \PY{k}{def} \PY{n+nf}{compute\PYZus{}weeks}\PY{p}{(}\PY{n}{startDate}\PY{p}{,} \PY{n}{endDate}\PY{p}{)}\PY{p}{:}
               \PY{n}{s\PYZus{}yyyy} \PY{o}{=} \PY{n+nb}{str}\PY{p}{(}\PY{n}{startDate}\PY{p}{)}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{:}\PY{l+m+mi}{4}\PY{p}{]}
@@ -379,7 +483,7 @@ CEW}\label{building-dataframe-for-the-pest-cew}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}118}]:} \PY{n}{start\PYZus{}cew\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}367}]:} \PY{n}{start\PYZus{}cew\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
           \PY{n}{search\PYZus{}cew\PYZus{}STdate} \PY{o}{=} \PY{n}{convert\PYZus{}pandasDate}\PY{p}{(}\PY{n}{start\PYZus{}cew\PYZus{}date}\PY{p}{)}
           
           \PY{n}{end\PYZus{}cew\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{3626}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
@@ -403,7 +507,7 @@ total weeeks  643
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}185}]:} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}368}]:} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -411,18 +515,18 @@ total weeeks  643
 ECB}\label{building-dataframe-for-the-pest-ecb}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}120}]:} \PY{c+c1}{\PYZsh{}dividing the dataframe based on each pests \PYZhy{} pest ECB}
+{\color{incolor}In [{\color{incolor}369}]:} \PY{c+c1}{\PYZsh{}dividing the dataframe based on each pests \PYZhy{} pest ECB}
           \PY{n}{df\PYZus{}ECB} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ECB}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}121}]:} \PY{n}{df\PYZus{}ECB}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}370}]:} \PY{n}{df\PYZus{}ECB}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}121}]:}               farm  trap\_count  year      date
+{\color{outcolor}Out[{\color{outcolor}370}]:}               farm  trap\_count  year      date
           pest                                          
           ECB   Litchfield-W          16  2006  20060619
           ECB       Hollis-B           7  2006  20060619
@@ -432,12 +536,12 @@ ECB}\label{building-dataframe-for-the-pest-ecb}
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}122}]:} \PY{n}{df\PYZus{}ECB}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}371}]:} \PY{n}{df\PYZus{}ECB}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}122}]:}                 farm  trap\_count  year      date
+{\color{outcolor}Out[{\color{outcolor}371}]:}                 farm  trap\_count  year      date
           pest                                            
           ECB     Hollis-JL-Pl           0  2018  20180924
           ECB   Peterborough-R           0  2018  20180924
@@ -447,16 +551,16 @@ ECB}\label{building-dataframe-for-the-pest-ecb}
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}123}]:} \PY{n}{df\PYZus{}ECB}\PY{o}{.}\PY{n}{shape}
+{\color{incolor}In [{\color{incolor}372}]:} \PY{n}{df\PYZus{}ECB}\PY{o}{.}\PY{n}{shape}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}123}]:} (4979, 4)
+{\color{outcolor}Out[{\color{outcolor}372}]:} (4979, 4)
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}124}]:} \PY{n}{start\PYZus{}ecb\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}373}]:} \PY{n}{start\PYZus{}ecb\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
           \PY{n}{search\PYZus{}ecb\PYZus{}STdate} \PY{o}{=} \PY{n}{convert\PYZus{}pandasDate}\PY{p}{(}\PY{n}{start\PYZus{}cew\PYZus{}date}\PY{p}{)}
           
           \PY{n}{end\PYZus{}ecb\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{4979}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
@@ -479,7 +583,7 @@ total weeeks  643
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}188}]:} \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}374}]:} \PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}ECB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -487,18 +591,18 @@ total weeeks  643
 FAW}\label{building-dataframe-for-the-pest-faw}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}215}]:} \PY{c+c1}{\PYZsh{}dividing the dataframe based on each pests \PYZhy{} pest FAW}
+{\color{incolor}In [{\color{incolor}375}]:} \PY{c+c1}{\PYZsh{}dividing the dataframe based on each pests \PYZhy{} pest FAW}
           \PY{n}{df\PYZus{}FAW} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FAW}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{year}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}216}]:} \PY{n}{df\PYZus{}FAW}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}376}]:} \PY{n}{df\PYZus{}FAW}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}216}]:}               farm  trap\_count  year      date
+{\color{outcolor}Out[{\color{outcolor}376}]:}               farm  trap\_count  year      date
           pest                                          
           FAW       Pelham-G           0  2006  20060619
           FAW   Litchfield-W           0  2006  20060619
@@ -508,12 +612,12 @@ FAW}\label{building-dataframe-for-the-pest-faw}
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}217}]:} \PY{n}{df\PYZus{}FAW}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}377}]:} \PY{n}{df\PYZus{}FAW}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}217}]:}            farm  trap\_count  year      date
+{\color{outcolor}Out[{\color{outcolor}377}]:}            farm  trap\_count  year      date
           pest                                       
           FAW    Antrim-T           0  2018  20181001
           FAW   Milford-M           0  2018  20181001
@@ -523,16 +627,16 @@ FAW}\label{building-dataframe-for-the-pest-faw}
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}218}]:} \PY{n}{df\PYZus{}FAW}\PY{o}{.}\PY{n}{shape}
+{\color{incolor}In [{\color{incolor}378}]:} \PY{n}{df\PYZus{}FAW}\PY{o}{.}\PY{n}{shape}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}218}]:} (3829, 4)
+{\color{outcolor}Out[{\color{outcolor}378}]:} (3829, 4)
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}219}]:} \PY{n}{start\PYZus{}faw\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}379}]:} \PY{n}{start\PYZus{}faw\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
           \PY{n}{search\PYZus{}faw\PYZus{}STdate} \PY{o}{=} \PY{n}{convert\PYZus{}pandasDate}\PY{p}{(}\PY{n}{start\PYZus{}cew\PYZus{}date}\PY{p}{)}
           
           \PY{n}{end\PYZus{}faw\PYZus{}date} \PY{o}{=} \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{3829}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]}
@@ -555,14 +659,14 @@ total weeeks  643
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}220}]:} \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}380}]:} \PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}FAW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
 \end{Verbatim}
 
 
     \section{NOAA DATA}\label{noaa-data}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}130}]:} \PY{n}{df\PYZus{}NOOA} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DAW.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}381}]:} \PY{n}{df\PYZus{}NOOA} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DAW.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{header}\PY{o}{=}\PY{l+m+mi}{0}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -573,21 +677,21 @@ total weeeks  643
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}131}]:} \PY{n}{df\PYZus{}NOOA}\PY{o}{.}\PY{n}{shape}
+{\color{incolor}In [{\color{incolor}382}]:} \PY{n}{df\PYZus{}NOOA}\PY{o}{.}\PY{n}{shape}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}131}]:} (473979, 29)
+{\color{outcolor}Out[{\color{outcolor}382}]:} (473979, 29)
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}132}]:} \PY{n}{df\PYZus{}NOOA}\PY{o}{.}\PY{n}{columns}
+{\color{incolor}In [{\color{incolor}383}]:} \PY{n}{df\PYZus{}NOOA}\PY{o}{.}\PY{n}{columns}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}132}]:} Index(['station', 'valid', 'tmpf', 'dwpf', 'relh', 'drct', 'sknt', 'p01i',
+{\color{outcolor}Out[{\color{outcolor}383}]:} Index(['station', 'valid', 'tmpf', 'dwpf', 'relh', 'drct', 'sknt', 'p01i',
                  'alti', 'mslp', 'vsby', 'gust', 'skyc1', 'skyc2', 'skyc3', 'skyc4',
                  'skyl1', 'skyl2', 'skyl3', 'skyl4', 'wxcodes', 'ice\_accretion\_1hr',
                  'ice\_accretion\_3hr', 'ice\_accretion\_6hr', 'peak\_wind\_gust',
@@ -596,22 +700,22 @@ total weeeks  643
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}133}]:} \PY{n}{df\PYZus{}equation}  \PY{o}{=} \PY{n}{df\PYZus{}NOOA}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tmpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dwpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}384}]:} \PY{n}{df\PYZus{}equation}  \PY{o}{=} \PY{n}{df\PYZus{}NOOA}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tmpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dwpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
           \PY{n}{df\PYZus{}equation}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}133}]:}     tmpf   dwpf  drct   feel             valid
-          0  24.80  10.40  60.0  20.46  2006-01-01 00:38
-          1  24.08  10.04  80.0  19.63  2006-01-01 00:51
-          2  21.92  15.98  20.0  13.39  2006-01-01 01:51
-          3  21.20  17.60  30.0  11.61  2006-01-01 02:15
-          4  21.92  17.06  30.0  13.39  2006-01-01 02:51
+{\color{outcolor}Out[{\color{outcolor}384}]:}     tmpf   dwpf  drct   feel        valid
+          0  24.80  10.40  60.0  20.46  1/1/06 0:38
+          1  24.08  10.04  80.0  19.63  1/1/06 0:51
+          2  21.92  15.98  20.0  13.39  1/1/06 1:51
+          3  21.20  17.60  30.0  11.61  1/1/06 2:15
+          4  21.92  17.06  30.0  13.39  1/1/06 2:51
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}134}]:} \PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}385}]:} \PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -626,7 +730,7 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}135}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}cew\PYZus{}STdate}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}386}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}cew\PYZus{}STdate}\PY{p}{)}
           \PY{n+nb}{print}\PY{p}{(}\PY{n}{search\PYZus{}cew\PYZus{}ENDdate}\PY{p}{)}
 \end{Verbatim}
 
@@ -641,14 +745,14 @@ See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stabl
 Pest}\label{selecting-weather-dataframe-within-the-date-range---cew-pest}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}136}]:} \PY{c+c1}{\PYZsh{}selecting the dataframe within the range \PYZhy{} CEW Pest}
+{\color{incolor}In [{\color{incolor}387}]:} \PY{c+c1}{\PYZsh{}selecting the dataframe within the range \PYZhy{} CEW Pest}
           \PY{c+c1}{\PYZsh{}df\PYZus{}equation = df\PYZus{}equation.loc[(df\PYZus{}equation[\PYZsq{}valid\PYZsq{}] \PYZgt{}= search\PYZus{}st\PYZus{}date) \PYZam{} (df\PYZus{}equation[\PYZsq{}valid\PYZsq{}] \PYZlt{}= search\PYZus{}end\PYZus{}date), :]}
           \PY{n}{df\PYZus{}equation} \PY{o}{=} \PY{n}{df\PYZus{}equation}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{p}{(}\PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZgt{}}\PY{o}{=} \PY{n}{search\PYZus{}cew\PYZus{}STdate}\PY{p}{)} \PY{o}{\PYZam{}} \PY{p}{(}\PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZlt{}}\PY{o}{=} \PY{n}{search\PYZus{}cew\PYZus{}ENDdate}\PY{p}{)}\PY{p}{,} \PY{p}{:}\PY{p}{]}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}137}]:} \PY{c+c1}{\PYZsh{}need to get all the columns from here and sum up fro every week }
+{\color{incolor}In [{\color{incolor}388}]:} \PY{c+c1}{\PYZsh{}need to get all the columns from here and sum up fro every week }
           \PY{c+c1}{\PYZsh{}select date and each column, and find the average for each column}
           \PY{n}{df\PYZus{}tempf} \PY{o}{=} \PY{n}{df\PYZus{}equation}\PY{p}{[}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{tmpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dwpf}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{drct}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{feel}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{valid}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
           \PY{n}{df\PYZus{}tempf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tmpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}tempf}\PY{p}{[}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{tmpf}\PY{l+s+s2}{\PYZdq{}}\PY{p}{]}\PY{o}{.}\PY{n}{fillna}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{)}
@@ -659,12 +763,12 @@ Pest}\label{selecting-weather-dataframe-within-the-date-range---cew-pest}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}138}]:} \PY{n}{df\PYZus{}tempf}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}389}]:} \PY{n}{df\PYZus{}tempf}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}138}]:}         tmpf  dwpf   drct  feel               valid
+{\color{outcolor}Out[{\color{outcolor}389}]:}         tmpf  dwpf   drct  feel               valid
           341757   0.0   0.0    0.0   0.0 2018-10-14 23:35:00
           341758   0.0   0.0  190.0   0.0 2018-10-14 23:40:00
           341759   0.0   0.0    0.0   0.0 2018-10-14 23:50:00
@@ -673,12 +777,12 @@ Pest}\label{selecting-weather-dataframe-within-the-date-range---cew-pest}
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}139}]:} \PY{c+c1}{\PYZsh{}df\PYZus{}tempf}
+{\color{incolor}In [{\color{incolor}390}]:} \PY{c+c1}{\PYZsh{}df\PYZus{}tempf}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}140}]:} \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{date}
+{\color{incolor}In [{\color{incolor}391}]:} \PY{k+kn}{from} \PY{n+nn}{datetime} \PY{k}{import} \PY{n}{date}
           
           \PY{k}{def} \PY{n+nf}{getweekly\PYZus{}temperature}\PY{p}{(}\PY{n}{df\PYZus{}tempf}\PY{p}{,}\PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{)}\PY{p}{:}
               
@@ -817,7 +921,7 @@ Pest}\label{selecting-weather-dataframe-within-the-date-range---cew-pest}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}141}]:} \PY{c+c1}{\PYZsh{}calling getweekly\PYZus{}temperature}
+{\color{incolor}In [{\color{incolor}392}]:} \PY{c+c1}{\PYZsh{}calling getweekly\PYZus{}temperature}
           \PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
           \PY{n}{getweekly\PYZus{}temperature}\PY{p}{(}\PY{n}{df\PYZus{}tempf}\PY{p}{,}\PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{)}
 \end{Verbatim}
@@ -830,19 +934,19 @@ total weeks:  47922
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}142}]:} \PY{c+c1}{\PYZsh{}creating data frame needed for equation}
+{\color{incolor}In [{\color{incolor}393}]:} \PY{c+c1}{\PYZsh{}creating data frame needed for equation}
           \PY{c+c1}{\PYZsh{}print(CEW\PYZus{}weather\PYZus{}data\PYZus{}dic)}
           \PY{n}{df\PYZus{}CEW\PYZus{}weather} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{CEW\PYZus{}weather\PYZus{}data\PYZus{}dic}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}143}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}394}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}143}]:}        tempf       dwpf        drct       feel        date
+{\color{outcolor}Out[{\color{outcolor}394}]:}        tempf       dwpf        drct       feel        date
           0  70.977613  63.913169   63.703704  71.301399  2006-06-19
           1  71.243468  65.095887   84.233871  71.733347  2006-06-26
           2  71.056485  59.203758  127.515152  71.263273  2006-07-03
@@ -851,12 +955,12 @@ total weeks:  47922
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}144}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}395}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{o}{.}\PY{n}{tail}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}144}]:}         tempf      dwpf        drct      feel        date
+{\color{outcolor}Out[{\color{outcolor}395}]:}         tempf      dwpf        drct      feel        date
           637  6.936188  6.288330  156.129550  6.983009  2018-09-03
           638  9.211018  8.905188  113.670949  9.217243  2018-09-10
           639  7.760753  7.281021  110.056730  7.728195  2018-09-17
@@ -865,22 +969,22 @@ total weeks:  47922
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}186}]:} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+{\color{incolor}In [{\color{incolor}396}]:} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}146}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}397}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{to\PYZus{}datetime}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}147}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
+{\color{incolor}In [{\color{incolor}398}]:} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{o}{.}\PY{n}{dt}\PY{o}{.}\PY{n}{date}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}148}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}399}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final} \PY{o}{=} \PY{n}{df\PYZus{}CEW}\PY{o}{.}\PY{n}{merge}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}weather}\PY{p}{,} \PY{n}{on}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{date}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -888,16 +992,58 @@ total weeks:  47922
 pests}\label{predicted-tarp-counts-cew-pests}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}149}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{columns}
+{\color{incolor}In [{\color{incolor}400}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{columns}
 \end{Verbatim}
 
 
 \begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}149}]:} Index(['farm', 'trap\_count', 'year', 'date', 'tempf', 'dwpf', 'drct', 'feel'], dtype='object')
+{\color{outcolor}Out[{\color{outcolor}400}]:} Index(['farm', 'trap\_count', 'year', 'date', 'tempf', 'dwpf', 'drct', 'feel'], dtype='object')
 \end{Verbatim}
             
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}150}]:} \PY{c+c1}{\PYZsh{}creating training and testign dataset }
+{\color{incolor}In [{\color{incolor}401}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final} \PY{o}{=} \PY{n}{Multiple\PYZus{}Linear\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+Intercept:  8.848344854621619
+Coeffecients  [-0.71959129  0.03611909  0.02071853  0.68803956]
+(515,)
+----------- Linear Regression Evaluations------------
+Mean Absolute Error (MAE):  14.705005947180688
+Mean Squared Eror (MSE):  860.9897652483703
+Root Mean Squared Eror (RMSE):  29.342627102022924
+
+    \end{Verbatim}
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_55_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}402}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}402}]:}            farm  trap\_count  year        date      tempf       dwpf  \textbackslash{}
+          0      Pelham-G           0  2006  2006-06-19  70.977613  63.913169   
+          1  Litchfield-W           0  2006  2006-06-19  70.977613  63.913169   
+          2  Litchfield-M           0  2006  2006-06-19  70.977613  63.913169   
+          3   Merrimack-T           0  2006  2006-06-19  70.977613  63.913169   
+          4      Hollis-L           1  2006  2006-06-19  70.977613  63.913169   
+          
+                  drct       feel  regression\_count  
+          0  63.703704  71.301399         10.459989  
+          1  63.703704  71.301399         10.459989  
+          2  63.703704  71.301399         10.459989  
+          3  63.703704  71.301399         10.459989  
+          4  63.703704  71.301399         10.459989  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}403}]:} \PY{c+c1}{\PYZsh{}creating training and testign dataset }
           \PY{n}{mask} \PY{o}{=} \PY{n}{np}\PY{o}{.}\PY{n}{random}\PY{o}{.}\PY{n}{rand}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{)}\PY{p}{)} \PY{o}{\PYZlt{}} \PY{l+m+mf}{0.8}
           \PY{n}{df\PYZus{}train\PYZus{}CEW} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{n}{mask}\PY{p}{]}
           \PY{n}{df\PYZus{}test\PYZus{}CEW} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{o}{\PYZti{}}\PY{n}{mask}\PY{p}{]}
@@ -905,42 +1051,71 @@ pests}\label{predicted-tarp-counts-cew-pests}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}151}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}train\PYZus{}CEW}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}404}]:} \PY{n}{df\PYZus{}train\PYZus{}CEW}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}404}]:}            farm  trap\_count  year        date      tempf       dwpf  \textbackslash{}
+          0      Pelham-G           0  2006  2006-06-19  70.977613  63.913169   
+          2  Litchfield-M           0  2006  2006-06-19  70.977613  63.913169   
+          3   Merrimack-T           0  2006  2006-06-19  70.977613  63.913169   
+          4      Hollis-L           1  2006  2006-06-19  70.977613  63.913169   
+          5      Hollis-B           0  2006  2006-06-19  70.977613  63.913169   
+          
+                  drct       feel  regression\_count  
+          0  63.703704  71.301399         10.459989  
+          2  63.703704  71.301399         10.459989  
+          3  63.703704  71.301399         10.459989  
+          4  63.703704  71.301399         10.459989  
+          5  63.703704  71.301399         10.459989  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}405}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}train\PYZus{}CEW}\PY{p}{)}\PY{p}{)}
           \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df\PYZus{}test\PYZus{}CEW}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-2053
-518
+2029
+542
 
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}152}]:} \PY{n}{expr\PYZus{}CEW} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{trap\PYZus{}count \PYZti{} tempf + dwpf + drct + feel}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+{\color{incolor}In [{\color{incolor}406}]:} \PY{n}{expr\PYZus{}CEW} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{trap\PYZus{}count \PYZti{} tempf + dwpf + drct + feel}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}153}]:} \PY{c+c1}{\PYZsh{}Set up the X and y matrices}
+{\color{incolor}In [{\color{incolor}407}]:} \PY{c+c1}{\PYZsh{}Set up the X and y matrices}
           \PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}train} \PY{o}{=} \PY{n}{dmatrices}\PY{p}{(}\PY{n}{expr\PYZus{}CEW}\PY{p}{,} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{,} \PY{n}{return\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataframe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
           \PY{n}{y\PYZus{}test}\PY{p}{,} \PY{n}{X\PYZus{}test} \PY{o}{=} \PY{n}{dmatrices}\PY{p}{(}\PY{n}{expr\PYZus{}CEW}\PY{p}{,} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{,} \PY{n}{return\PYZus{}type}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{dataframe}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          
+          \PY{c+c1}{\PYZsh{}y\PYZus{}train, X\PYZus{}train = dmatrices(expr\PYZus{}CEW, df\PYZus{}train\PYZus{}CEW, return\PYZus{}type=\PYZsq{}dataframe\PYZsq{})}
+          \PY{c+c1}{\PYZsh{}y\PYZus{}test, X\PYZus{}test = dmatrices(expr\PYZus{}CEW, df\PYZus{}test\PYZus{}CEW, return\PYZus{}type=\PYZsq{}dataframe\PYZsq{})}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}154}]:} \PY{c+c1}{\PYZsh{}X\PYZus{}test}
+{\color{incolor}In [{\color{incolor}408}]:} \PY{c+c1}{\PYZsh{}X\PYZus{}test}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}155}]:} \PY{c+c1}{\PYZsh{}Using the statsmodels GLM class, train the Poisson regression model on the training data set.}
+{\color{incolor}In [{\color{incolor}409}]:} \PY{c+c1}{\PYZsh{}y\PYZus{}test}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}410}]:} \PY{c+c1}{\PYZsh{}Using the statsmodels GLM class, train the Poisson regression model on the training data set.}
           \PY{n}{poisson\PYZus{}training\PYZus{}results} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{GLM}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,} \PY{n}{family}\PY{o}{=}\PY{n}{sm}\PY{o}{.}\PY{n}{families}\PY{o}{.}\PY{n}{Poisson}\PY{p}{(}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}156}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{poisson\PYZus{}training\PYZus{}results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}411}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{poisson\PYZus{}training\PYZus{}results}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
 \end{Verbatim}
 
 
@@ -952,8 +1127,8 @@ Model:                            GLM   Df Residuals:                     2566
 Model Family:                 Poisson   Df Model:                            4
 Link Function:                    log   Scale:                          1.0000
 Method:                          IRLS   Log-Likelihood:                -41041.
-Date:                Sun, 05 Apr 2020   Deviance:                       75750.
-Time:                        22:59:34   Pearson chi2:                 1.55e+05
+Date:                Tue, 05 May 2020   Deviance:                       75750.
+Time:                        22:16:15   Pearson chi2:                 1.55e+05
 No. Iterations:                     6   Covariance Type:             nonrobust
 ==============================================================================
                  coef    std err          z      P>|z|      [0.025      0.975]
@@ -968,13 +1143,13 @@ feel           0.1047      0.007     14.292      0.000       0.090       0.119
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}157}]:} \PY{c+c1}{\PYZsh{}Make some predictions on the test data set.}
+{\color{incolor}In [{\color{incolor}412}]:} \PY{c+c1}{\PYZsh{}Make some predictions on the test data set.}
           \PY{n}{poisson\PYZus{}predictions} \PY{o}{=} \PY{n}{poisson\PYZus{}training\PYZus{}results}\PY{o}{.}\PY{n}{get\PYZus{}prediction}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}158}]:} \PY{c+c1}{\PYZsh{}.summary\PYZus{}frame() returns a pandas DataFrame}
+{\color{incolor}In [{\color{incolor}413}]:} \PY{c+c1}{\PYZsh{}summary\PYZus{}frame() returns a pandas DataFrame}
           \PY{n}{predictions\PYZus{}summary\PYZus{}frame} \PY{o}{=} \PY{n}{poisson\PYZus{}predictions}\PY{o}{.}\PY{n}{summary\PYZus{}frame}\PY{p}{(}\PY{p}{)}
           \PY{n+nb}{print}\PY{p}{(}\PY{n}{predictions\PYZus{}summary\PYZus{}frame}\PY{p}{)}
 \end{Verbatim}
@@ -1049,157 +1224,31 @@ feel           0.1047      0.007     14.292      0.000       0.090       0.119
     \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}159}]:} \PY{n}{predicted\PYZus{}counts}\PY{o}{=}\PY{n}{predictions\PYZus{}summary\PYZus{}frame}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+{\color{incolor}In [{\color{incolor}414}]:} \PY{c+c1}{\PYZsh{}predicted\PYZus{}counts=predictions\PYZus{}summary\PYZus{}frame[\PYZsq{}mean\PYZsq{}]}
           \PY{n}{actual\PYZus{}counts} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}160}]:} \PY{n}{predicted\PYZus{}counts}
-\end{Verbatim}
-
-
-\begin{Verbatim}[commandchars=\\\{\}]
-{\color{outcolor}Out[{\color{outcolor}160}]:} 0       10.502287
-          1       10.502287
-          2       10.502287
-          3       10.502287
-          4       10.502287
-          5       10.502287
-          6       10.502287
-          7       10.502287
-          8       10.502287
-          9       10.502287
-          10      10.502287
-          11      10.824663
-          12      10.824663
-          13      10.824663
-          14      10.824663
-          15      10.824663
-          16      10.824663
-          17      10.824663
-          18      10.824663
-          19      10.824663
-          20      10.824663
-          21      10.824663
-          22      12.268939
-          23      12.268939
-          24      12.268939
-          25      12.268939
-          26      12.268939
-          27      12.268939
-          28      12.268939
-          29      12.268939
-                    {\ldots}    
-          2541    11.342433
-          2542    11.342433
-          2543    11.342433
-          2544    12.080906
-          2545    12.080906
-          2546    12.080906
-          2547    12.080906
-          2548    12.080906
-          2549    12.080906
-          2550    12.080906
-          2551    12.080906
-          2552    12.080906
-          2553    12.080906
-          2554    12.080906
-          2555    12.080906
-          2556    12.080906
-          2557    12.080906
-          2558    12.080906
-          2559    12.080906
-          2560    12.080906
-          2561    11.680781
-          2562    11.680781
-          2563    11.680781
-          2564    11.680781
-          2565    11.680781
-          2566    11.680781
-          2567    11.680781
-          2568    11.680781
-          2569    11.680781
-          2570    11.680781
-          Name: mean, Length: 2571, dtype: float64
-\end{Verbatim}
-            
-    \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}161}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{actual\PYZus{}counts}\PY{p}{)}
+{\color{incolor}In [{\color{incolor}415}]:} \PY{n}{poisson\PYZus{}count} \PY{o}{=} \PY{n}{predictions\PYZus{}summary\PYZus{}frame}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-0        0.0
-1        0.0
-2        0.0
-3        0.0
-4        1.0
-5        0.0
-6        0.0
-7        0.0
-8        0.0
-9        0.0
-10       0.0
-11       0.0
-12       0.0
-13       0.0
-14       0.0
-15       1.0
-16       0.0
-17       0.0
-18       0.0
-19       0.0
-20       0.0
-21       0.0
-22       0.0
-23       3.0
-24       0.0
-25       0.0
-26       4.0
-27      10.0
-28       1.0
-29       3.0
-        {\ldots} 
-2541     0.0
-2542     2.0
-2543     5.0
-2544    21.0
-2545    10.0
-2546     8.0
-2547    20.0
-2548    12.0
-2549     8.0
-2550    23.0
-2551    60.0
-2552    65.0
-2553     1.0
-2554     1.0
-2555     5.0
-2556     4.0
-2557     3.0
-2558     1.0
-2559     2.0
-2560     1.0
-2561     6.0
-2562     2.0
-2563     0.0
-2564     0.0
-2565     8.0
-2566     2.0
-2567     6.0
-2568    12.0
-2569     1.0
-2570     1.0
-Name: trap\_count, Length: 2571, dtype: float64
+{\color{incolor}In [{\color{incolor}416}]:} \PY{c+c1}{\PYZsh{}poisson\PYZus{}count}
+\end{Verbatim}
 
-    \end{Verbatim}
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}162}]:} \PY{c+c1}{\PYZsh{}Mlot the predicted counts versus the actual counts for the test data.}
+{\color{incolor}In [{\color{incolor}417}]:} \PY{c+c1}{\PYZsh{}print(actual\PYZus{}counts)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}418}]:} \PY{c+c1}{\PYZsh{}Mlot the predicted counts versus the actual counts for the test data.}
           \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
           \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted versus actual CEW pest counts }\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
-          \PY{n}{predicted}\PY{p}{,} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{predicted\PYZus{}counts}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{predicted}\PY{p}{,} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{poisson\PYZus{}count}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Predicted counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
           \PY{n}{actual}\PY{p}{,} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{actual\PYZus{}counts}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
           \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{o}{=}\PY{p}{[}\PY{n}{predicted}\PY{p}{,} \PY{n}{actual}\PY{p}{]}\PY{p}{)}
           \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
@@ -1207,31 +1256,1824 @@ Name: trap\_count, Length: 2571, dtype: float64
 
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_60_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_72_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}163}]:} \PY{c+c1}{\PYZsh{}writing dataframe into csv file}
+{\color{incolor}In [{\color{incolor}419}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{clf}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Poisson Regression Scatter plot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{poisson\PYZus{}count}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{actual\PYZus{}counts}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Poisson counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_73_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}420}]:} \PY{c+c1}{\PYZsh{}writing dataframe into csv file}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}164}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{predicted\PYZus{}counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{predicted\PYZus{}counts}
+{\color{incolor}In [{\color{incolor}421}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poisson\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{poisson\PYZus{}count}
 \end{Verbatim}
 
 
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}195}]:} \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}final}
+{\color{incolor}In [{\color{incolor}422}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
 \end{Verbatim}
 
 
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}422}]:}            farm  trap\_count  year        date      tempf       dwpf  \textbackslash{}
+          0      Pelham-G           0  2006  2006-06-19  70.977613  63.913169   
+          1  Litchfield-W           0  2006  2006-06-19  70.977613  63.913169   
+          2  Litchfield-M           0  2006  2006-06-19  70.977613  63.913169   
+          3   Merrimack-T           0  2006  2006-06-19  70.977613  63.913169   
+          4      Hollis-L           1  2006  2006-06-19  70.977613  63.913169   
+          
+                  drct       feel  regression\_count  poisson\_count  
+          0  63.703704  71.301399         10.459989      10.502287  
+          1  63.703704  71.301399         10.459989      10.502287  
+          2  63.703704  71.301399         10.459989      10.502287  
+          3  63.703704  71.301399         10.459989      10.502287  
+          4  63.703704  71.301399         10.459989      10.502287  
+\end{Verbatim}
+            
     \begin{Verbatim}[commandchars=\\\{\}]
-{\color{incolor}In [{\color{incolor}166}]:} \PY{c+c1}{\PYZsh{}writing into the csv file}
+{\color{incolor}In [{\color{incolor}423}]:} \PY{c+c1}{\PYZsh{}writing into the csv file}
           \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CEW\PYZus{}predicted\PYZus{}count.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{sep} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
 \end{Verbatim}
 
 
+    \section{Negative Binomial Regression -
+CEW}\label{negative-binomial-regression---cew}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}424}]:} \PY{c+c1}{\PYZsh{}print out the fitted rate vector}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{poisson\PYZus{}training\PYZus{}results}\PY{o}{.}\PY{n}{mu}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+[10.50228707 10.50228707 10.50228707 {\ldots} 11.68078149 11.68078149
+ 11.68078149]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}425}]:} \PY{c+c1}{\PYZsh{}Add the λ vector as a new column called \PYZsq{}BB\PYZus{}LAMBDA\PYZsq{} to the Data Frame of the training data set}
+          \PY{n}{df\PYZus{}CEW\PYZus{}final\PYZus{}NB} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}426}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final\PYZus{}NB}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}426}]:}            farm  trap\_count  year        date      tempf       dwpf  \textbackslash{}
+          0      Pelham-G           0  2006  2006-06-19  70.977613  63.913169   
+          1  Litchfield-W           0  2006  2006-06-19  70.977613  63.913169   
+          2  Litchfield-M           0  2006  2006-06-19  70.977613  63.913169   
+          3   Merrimack-T           0  2006  2006-06-19  70.977613  63.913169   
+          4      Hollis-L           1  2006  2006-06-19  70.977613  63.913169   
+          
+                  drct       feel  regression\_count  poisson\_count  
+          0  63.703704  71.301399         10.459989      10.502287  
+          1  63.703704  71.301399         10.459989      10.502287  
+          2  63.703704  71.301399         10.459989      10.502287  
+          3  63.703704  71.301399         10.459989      10.502287  
+          4  63.703704  71.301399         10.459989      10.502287  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}427}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final\PYZus{}NB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LAMBDA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{poisson\PYZus{}training\PYZus{}results}\PY{o}{.}\PY{n}{mu}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}428}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final\PYZus{}NB}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}428}]:}            farm  trap\_count  year        date      tempf       dwpf  \textbackslash{}
+          0      Pelham-G           0  2006  2006-06-19  70.977613  63.913169   
+          1  Litchfield-W           0  2006  2006-06-19  70.977613  63.913169   
+          2  Litchfield-M           0  2006  2006-06-19  70.977613  63.913169   
+          3   Merrimack-T           0  2006  2006-06-19  70.977613  63.913169   
+          4      Hollis-L           1  2006  2006-06-19  70.977613  63.913169   
+          
+                  drct       feel  regression\_count  poisson\_count     LAMBDA  
+          0  63.703704  71.301399         10.459989      10.502287  10.502287  
+          1  63.703704  71.301399         10.459989      10.502287  10.502287  
+          2  63.703704  71.301399         10.459989      10.502287  10.502287  
+          3  63.703704  71.301399         10.459989      10.502287  10.502287  
+          4  63.703704  71.301399         10.459989      10.502287  10.502287  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}429}]:} \PY{c+c1}{\PYZsh{}add a derived column called \PYZsq{}AUX\PYZus{}OLS\PYZus{}DEP\PYZsq{} to the pandas Data Frame. This new column will store the values of the dependent variable of the OLS regression}
+          \PY{n}{df\PYZus{}CEW\PYZus{}final\PYZus{}NB}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUX\PYZus{}OLS\PYZus{}DEP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final\PYZus{}NB}\PY{o}{.}\PY{n}{apply}\PY{p}{(}\PY{k}{lambda} \PY{n}{x}\PY{p}{:} \PY{p}{(}\PY{p}{(}\PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poisson\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LAMBDA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)}\PY{o}{*}\PY{o}{*}\PY{l+m+mi}{2} \PY{o}{\PYZhy{}} \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poisson\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{)} \PY{o}{/} \PY{n}{x}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LAMBDA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}430}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final\PYZus{}NB}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}430}]:}            farm  trap\_count  year        date      tempf       dwpf  \textbackslash{}
+          0      Pelham-G           0  2006  2006-06-19  70.977613  63.913169   
+          1  Litchfield-W           0  2006  2006-06-19  70.977613  63.913169   
+          2  Litchfield-M           0  2006  2006-06-19  70.977613  63.913169   
+          3   Merrimack-T           0  2006  2006-06-19  70.977613  63.913169   
+          4      Hollis-L           1  2006  2006-06-19  70.977613  63.913169   
+          
+                  drct       feel  regression\_count  poisson\_count     LAMBDA  \textbackslash{}
+          0  63.703704  71.301399         10.459989      10.502287  10.502287   
+          1  63.703704  71.301399         10.459989      10.502287  10.502287   
+          2  63.703704  71.301399         10.459989      10.502287  10.502287   
+          3  63.703704  71.301399         10.459989      10.502287  10.502287   
+          4  63.703704  71.301399         10.459989      10.502287  10.502287   
+          
+             AUX\_OLS\_DEP  
+          0         -1.0  
+          1         -1.0  
+          2         -1.0  
+          3         -1.0  
+          4         -1.0  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}431}]:} \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{formula}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{smf}
+          \PY{k+kn}{import} \PY{n+nn}{statsmodels}\PY{n+nn}{.}\PY{n+nn}{api} \PY{k}{as} \PY{n+nn}{sm}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}432}]:} \PY{n}{ols\PYZus{}expr} \PY{o}{=} \PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}\PY{l+s+s2}{AUX\PYZus{}OLS\PYZus{}DEP \PYZti{} LAMBDA \PYZhy{} 1}\PY{l+s+s2}{\PYZdq{}\PYZdq{}\PYZdq{}}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}433}]:} \PY{c+c1}{\PYZsh{}fitting the OLSR model}
+          \PY{n}{aux\PYZus{}olsr\PYZus{}results} \PY{o}{=} \PY{n}{smf}\PY{o}{.}\PY{n}{ols}\PY{p}{(}\PY{n}{ols\PYZus{}expr}\PY{p}{,} \PY{n}{df\PYZus{}CEW\PYZus{}final\PYZus{}NB}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}434}]:} \PY{c+c1}{\PYZsh{}Print the regression params}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n+nb}{abs}\PY{p}{(}\PY{n}{aux\PYZus{}olsr\PYZus{}results}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+0.08788375329980906
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}435}]:} \PY{c+c1}{\PYZsh{}defining negative binomial regression model }
+          \PY{n}{M2\PYZus{}NB\PYZus{}CEW} \PY{o}{=} \PY{n}{sm}\PY{o}{.}\PY{n}{GLM}\PY{p}{(}\PY{n}{y\PYZus{}train}\PY{p}{,} \PY{n}{X\PYZus{}train}\PY{p}{,}\PY{n}{family}\PY{o}{=}\PY{n}{sm}\PY{o}{.}\PY{n}{families}\PY{o}{.}\PY{n}{NegativeBinomial}\PY{p}{(}\PY{n}{alpha} \PY{o}{=} \PY{n+nb}{abs}\PY{p}{(}\PY{n}{aux\PYZus{}olsr\PYZus{}results}\PY{o}{.}\PY{n}{params}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)}\PY{p}{)}\PY{p}{)}\PY{o}{.}\PY{n}{fit}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}436}]:} \PY{n+nb}{print}\PY{p}{(}\PY{n}{M2\PYZus{}NB\PYZus{}CEW}\PY{o}{.}\PY{n}{summary}\PY{p}{(}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                 2571
+Model:                            GLM   Df Residuals:                     2566
+Model Family:        NegativeBinomial   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -20848.
+Date:                Tue, 05 May 2020   Deviance:                       34263.
+Time:                        22:16:16   Pearson chi2:                 7.77e+04
+No. Iterations:                     9   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      2.2529      0.059     38.145      0.000       2.137       2.369
+tempf         -0.1147      0.010    -11.207      0.000      -0.135      -0.095
+dwpf          -0.0198      0.004     -5.486      0.000      -0.027      -0.013
+drct           0.0017      0.000      4.516      0.000       0.001       0.002
+feel           0.1317      0.010     13.273      0.000       0.112       0.151
+==============================================================================
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}437}]:} \PY{c+c1}{\PYZsh{}predictions using NB2 model}
+          \PY{c+c1}{\PYZsh{}nb2\PYZus{}predictions = nb2\PYZus{}training\PYZus{}results.get\PYZus{}prediction(X\PYZus{}test)}
+          \PY{n}{M2\PYZus{}NB\PYZus{}CEW\PYZus{}pred} \PY{o}{=} \PY{n}{M2\PYZus{}NB\PYZus{}CEW}\PY{o}{.}\PY{n}{get\PYZus{}prediction}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}438}]:} \PY{c+c1}{\PYZsh{}print out the predictions}
+          \PY{n}{predictions\PYZus{}summary\PYZus{}frame} \PY{o}{=} \PY{n}{M2\PYZus{}NB\PYZus{}CEW\PYZus{}pred}\PY{o}{.}\PY{n}{summary\PYZus{}frame}\PY{p}{(}\PY{p}{)}
+          \PY{n+nb}{print}\PY{p}{(}\PY{n}{predictions\PYZus{}summary\PYZus{}frame}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+           mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+0     10.398317  0.168510      10.073234      10.733890
+1     10.398317  0.168510      10.073234      10.733890
+2     10.398317  0.168510      10.073234      10.733890
+3     10.398317  0.168510      10.073234      10.733890
+4     10.398317  0.168510      10.073234      10.733890
+5     10.398317  0.168510      10.073234      10.733890
+6     10.398317  0.168510      10.073234      10.733890
+7     10.398317  0.168510      10.073234      10.733890
+8     10.398317  0.168510      10.073234      10.733890
+9     10.398317  0.168510      10.073234      10.733890
+10    10.398317  0.168510      10.073234      10.733890
+11    10.793132  0.145126      10.512407      11.081355
+12    10.793132  0.145126      10.512407      11.081355
+13    10.793132  0.145126      10.512407      11.081355
+14    10.793132  0.145126      10.512407      11.081355
+15    10.793132  0.145126      10.512407      11.081355
+16    10.793132  0.145126      10.512407      11.081355
+17    10.793132  0.145126      10.512407      11.081355
+18    10.793132  0.145126      10.512407      11.081355
+19    10.793132  0.145126      10.512407      11.081355
+20    10.793132  0.145126      10.512407      11.081355
+21    10.793132  0.145126      10.512407      11.081355
+22    12.518481  0.170246      12.189212      12.856645
+23    12.518481  0.170246      12.189212      12.856645
+24    12.518481  0.170246      12.189212      12.856645
+25    12.518481  0.170246      12.189212      12.856645
+26    12.518481  0.170246      12.189212      12.856645
+27    12.518481  0.170246      12.189212      12.856645
+28    12.518481  0.170246      12.189212      12.856645
+29    12.518481  0.170246      12.189212      12.856645
+{\ldots}         {\ldots}       {\ldots}            {\ldots}            {\ldots}
+2541  11.245975  0.278699      10.712789      11.805698
+2542  11.245975  0.278699      10.712789      11.805698
+2543  11.245975  0.278699      10.712789      11.805698
+2544  12.117454  0.296077      11.550829      12.711874
+2545  12.117454  0.296077      11.550829      12.711874
+2546  12.117454  0.296077      11.550829      12.711874
+2547  12.117454  0.296077      11.550829      12.711874
+2548  12.117454  0.296077      11.550829      12.711874
+2549  12.117454  0.296077      11.550829      12.711874
+2550  12.117454  0.296077      11.550829      12.711874
+2551  12.117454  0.296077      11.550829      12.711874
+2552  12.117454  0.296077      11.550829      12.711874
+2553  12.117454  0.296077      11.550829      12.711874
+2554  12.117454  0.296077      11.550829      12.711874
+2555  12.117454  0.296077      11.550829      12.711874
+2556  12.117454  0.296077      11.550829      12.711874
+2557  12.117454  0.296077      11.550829      12.711874
+2558  12.117454  0.296077      11.550829      12.711874
+2559  12.117454  0.296077      11.550829      12.711874
+2560  12.117454  0.296077      11.550829      12.711874
+2561  11.647666  0.263779      11.141975      12.176308
+2562  11.647666  0.263779      11.141975      12.176308
+2563  11.647666  0.263779      11.141975      12.176308
+2564  11.647666  0.263779      11.141975      12.176308
+2565  11.647666  0.263779      11.141975      12.176308
+2566  11.647666  0.263779      11.141975      12.176308
+2567  11.647666  0.263779      11.141975      12.176308
+2568  11.647666  0.263779      11.141975      12.176308
+2569  11.647666  0.263779      11.141975      12.176308
+2570  11.647666  0.263779      11.141975      12.176308
+
+[2571 rows x 4 columns]
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}439}]:} \PY{c+c1}{\PYZsh{}plot the predicted counts versus the actual counts for the test data}
+          \PY{n}{NB\PYZus{}counts}\PY{o}{=}\PY{n}{predictions\PYZus{}summary\PYZus{}frame}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{mean}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}440}]:} \PY{c+c1}{\PYZsh{}NB\PYZus{}counts}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}441}]:} \PY{n}{NB\PYZus{}actual\PYZus{}counts} \PY{o}{=} \PY{n}{y\PYZus{}test}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{trap\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}442}]:} \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Negative Binomial Regression}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{predicted}\PY{p}{,} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{NB\PYZus{}counts}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{go\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NB Predicted counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{actual}\PY{p}{,} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{X\PYZus{}test}\PY{o}{.}\PY{n}{index}\PY{p}{,} \PY{n}{NB\PYZus{}actual\PYZus{}counts}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{ro\PYZhy{}}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{label}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{legend}\PY{p}{(}\PY{n}{handles}\PY{o}{=}\PY{p}{[}\PY{n}{predicted}\PY{p}{,} \PY{n}{actual}\PY{p}{]}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_97_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}443}]:} \PY{n}{plt}\PY{o}{.}\PY{n}{clf}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig} \PY{o}{=} \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{p}{)}
+          \PY{n}{fig}\PY{o}{.}\PY{n}{suptitle}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Negative Binomial Regression Scatter plot}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{scatter}\PY{p}{(}\PY{n}{x}\PY{o}{=}\PY{n}{NB\PYZus{}counts}\PY{p}{,} \PY{n}{y}\PY{o}{=}\PY{n}{NB\PYZus{}actual\PYZus{}counts}\PY{p}{,} \PY{n}{marker}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{.}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{xlabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Negative Binomial counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{ylabel}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Actual counts}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+          \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_98_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}444}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NB\PYZus{}count}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{NB\PYZus{}counts}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}445}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}445}]:}            farm  trap\_count  year        date      tempf       dwpf  \textbackslash{}
+          0      Pelham-G           0  2006  2006-06-19  70.977613  63.913169   
+          1  Litchfield-W           0  2006  2006-06-19  70.977613  63.913169   
+          2  Litchfield-M           0  2006  2006-06-19  70.977613  63.913169   
+          3   Merrimack-T           0  2006  2006-06-19  70.977613  63.913169   
+          4      Hollis-L           1  2006  2006-06-19  70.977613  63.913169   
+          
+                  drct       feel  regression\_count  poisson\_count     LAMBDA  \textbackslash{}
+          0  63.703704  71.301399         10.459989      10.502287  10.502287   
+          1  63.703704  71.301399         10.459989      10.502287  10.502287   
+          2  63.703704  71.301399         10.459989      10.502287  10.502287   
+          3  63.703704  71.301399         10.459989      10.502287  10.502287   
+          4  63.703704  71.301399         10.459989      10.502287  10.502287   
+          
+             AUX\_OLS\_DEP   NB\_count  
+          0         -1.0  10.398317  
+          1         -1.0  10.398317  
+          2         -1.0  10.398317  
+          3         -1.0  10.398317  
+          4         -1.0  10.398317  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}446}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{LAMBDA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+          \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AUX\PYZus{}OLS\PYZus{}DEP}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}484}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{l+m+mi}{12}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}484}]:}               farm  trap\_count  year        date      tempf       dwpf  \textbackslash{}
+          0         Pelham-G           0  2006  2006-06-19  70.977613  63.913169   
+          1     Litchfield-W           0  2006  2006-06-19  70.977613  63.913169   
+          2     Litchfield-M           0  2006  2006-06-19  70.977613  63.913169   
+          3      Merrimack-T           0  2006  2006-06-19  70.977613  63.913169   
+          4         Hollis-L           1  2006  2006-06-19  70.977613  63.913169   
+          5         Hollis-B           0  2006  2006-06-19  70.977613  63.913169   
+          6         Hollis-K           0  2006  2006-06-19  70.977613  63.913169   
+          7        Milford-S           0  2006  2006-06-19  70.977613  63.913169   
+          8         Antrim-T           0  2006  2006-06-19  70.977613  63.913169   
+          9          Mason-B           0  2006  2006-06-19  70.977613  63.913169   
+          10  Peterborough-R           0  2006  2006-06-19  70.977613  63.913169   
+          11        Pelham-G           0  2006  2006-06-26  71.243468  65.095887   
+          
+                   drct       feel  regression\_count  poisson\_count   NB\_count  \textbackslash{}
+          0   63.703704  71.301399         10.459989      10.502287  10.398317   
+          1   63.703704  71.301399         10.459989      10.502287  10.398317   
+          2   63.703704  71.301399         10.459989      10.502287  10.398317   
+          3   63.703704  71.301399         10.459989      10.502287  10.398317   
+          4   63.703704  71.301399         10.459989      10.502287  10.398317   
+          5   63.703704  71.301399         10.459989      10.502287  10.398317   
+          6   63.703704  71.301399         10.459989      10.502287  10.398317   
+          7   63.703704  71.301399         10.459989      10.502287  10.398317   
+          8   63.703704  71.301399         10.459989      10.502287  10.398317   
+          9   63.703704  71.301399         10.459989      10.502287  10.398317   
+          10  63.703704  71.301399         10.459989      10.502287  10.398317   
+          11  84.233871  71.733347         11.033953      10.824663  10.793132   
+          
+              poisson\_count\_farm  
+          0             3.176978  
+          1                  NaN  
+          2                  NaN  
+          3                  NaN  
+          4                  NaN  
+          5                  NaN  
+          6                  NaN  
+          7                  NaN  
+          8                  NaN  
+          9                  NaN  
+          10                 NaN  
+          11            3.996585  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}448}]:} \PY{c+c1}{\PYZsh{}writing into the csv file}
+          \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{to\PYZus{}csv}\PY{p}{(}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{CEW\PYZus{}predicted\PYZus{}count.csv}\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{n}{index} \PY{o}{=} \PY{k+kc}{False}\PY{p}{,} \PY{n}{sep} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{,}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}485}]:} \PY{c+c1}{\PYZsh{}1 for the farm Pelham\PYZhy{}G}
+          \PY{n}{df\PYZus{}CEW\PYZus{}pelham} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Pelham\PYZhy{}G}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}2 for the farm Pelham\PYZhy{}G}
+          \PY{n}{df\PYZus{}CEW\PYZus{}LitchfieldW} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Litchfield\PYZhy{}W}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}3 for the farm Pelham\PYZhy{}G}
+          \PY{n}{df\PYZus{}CEW\PYZus{}LitchfieldM} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Litchfield\PYZhy{}M}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}4 for the farm Pelham\PYZhy{}G}
+          \PY{n}{df\PYZus{}CEW\PYZus{}MerrimackT} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Merrimack\PYZhy{}T}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}5 for the farm Pelham\PYZhy{}G}
+          \PY{n}{df\PYZus{}CEW\PYZus{}HollisL} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hollis\PYZhy{}L}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}6 for the farm Pelham\PYZhy{}G}
+          \PY{n}{df\PYZus{}CEW\PYZus{}HollisB} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hollis\PYZhy{}B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}7 for the farm Pelham\PYZhy{}G}
+          \PY{n}{df\PYZus{}CEW\PYZus{}HollisK} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hollis\PYZhy{}K}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}8 for the farm Pelham\PYZhy{}G}
+          \PY{n}{df\PYZus{}CEW\PYZus{}MilfordS} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Milford\PYZhy{}S}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}9 for the farm Pelham\PYZhy{}G}
+          \PY{n}{df\PYZus{}CEW\PYZus{}AntrimT} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Antrim\PYZhy{}T}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}10 for the farm Pelham\PYZhy{}G}
+          \PY{n}{df\PYZus{}CEW\PYZus{}MasonB} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Mason\PYZhy{}B}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+          
+          \PY{c+c1}{\PYZsh{}11 for the farm Pelham\PYZhy{}G}
+          \PY{n}{df\PYZus{}CEW\PYZus{}PeterboroughR} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{==} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Peterborough\PYZhy{}R}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}486}]:} \PY{n}{df\PYZus{}CEW\PYZus{}pelham}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}486}]:}         farm  trap\_count  year        date      tempf       dwpf        drct  \textbackslash{}
+          0   Pelham-G           0  2006  2006-06-19  70.977613  63.913169   63.703704   
+          11  Pelham-G           0  2006  2006-06-26  71.243468  65.095887   84.233871   
+          22  Pelham-G           0  2006  2006-07-03  71.056485  59.203758  127.515152   
+          33  Pelham-G           0  2006  2006-07-10  71.830909  66.491782   59.745455   
+          45  Pelham-G           0  2006  2006-07-17  73.200175  66.515808  101.004367   
+          
+                   feel  regression\_count  poisson\_count   NB\_count  poisson\_count\_farm  
+          0   71.301399         10.459989      10.502287  10.398317            3.176978  
+          11  71.733347         11.033953      10.824663  10.793132            3.996585  
+          22  71.263273         11.528981      12.268939  12.518481            6.933632  
+          33  72.608255         10.756261      10.622663  10.572345            3.089388  
+          45  74.150786         11.687964      11.674616  11.854049            5.179942  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}488}]:} \PY{n}{df\PYZus{}CEW\PYZus{}pelham} \PY{o}{=} \PY{n}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}pelham}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ CEW }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pelham }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                  121
+Model:                            GLM   Df Residuals:                      116
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -821.31
+Date:                Tue, 05 May 2020   Deviance:                       1433.0
+Time:                        22:58:09   Pearson chi2:                 2.42e+03
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     -1.0062      0.370     -2.719      0.007      -1.732      -0.281
+tempf         -0.0256      0.040     -0.648      0.517      -0.103       0.052
+dwpf          -0.0156      0.017     -0.913      0.361      -0.049       0.018
+drct           0.0111      0.002      6.115      0.000       0.008       0.015
+feel           0.0598      0.037      1.615      0.106      -0.013       0.132
+==============================================================================
+           mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+0      3.176978  0.268656       2.691744       3.749685
+11     3.996585  0.272249       3.497075       4.567443
+22     6.933632  0.392505       6.205478       7.747228
+33     3.089388  0.282164       2.583030       3.695010
+45     5.179942  0.370826       4.501823       5.960209
+59     4.307315  0.410099       3.574076       5.190982
+73     6.336537  0.465736       5.486414       7.318385
+86    12.848280  1.488460      10.238449      16.123370
+100    5.451233  0.372870       4.767291       6.233297
+114    3.605496  0.215699       3.206578       4.054043
+127    4.655187  0.276777       4.143128       5.230531
+140    3.251352  0.217780       2.851342       3.707478
+152    3.311187  0.220352       2.906285       3.772500
+164    6.567343  0.585007       5.515263       7.820116
+176    3.714619  0.355907       3.078638       4.481981
+191    3.711391  0.254003       3.245500       4.244160
+203    5.417942  0.336609       4.796787       6.119532
+216    3.046614  0.273947       2.554340       3.633760
+230    4.794589  0.310337       4.223340       5.443104
+244    4.340525  0.272899       3.837296       4.909748
+258    4.832580  0.210580       4.436984       5.263448
+272    5.119485  0.245645       4.659976       5.624305
+286    9.433273  0.925345       7.783320      11.432994
+300    3.701323  0.307217       3.145615       4.355203
+314    3.306336  0.217475       2.906425       3.761275
+328    4.106654  0.215148       3.705900       4.550746
+342    6.190899  0.328494       5.579411       6.869404
+377    2.475090  0.267169       2.003133       3.058245
+391    3.874294  0.301156       3.326803       4.511886
+405    5.288977  0.279738       4.768163       5.866679
+{\ldots}         {\ldots}       {\ldots}            {\ldots}            {\ldots}
+1648   5.436486  0.340917       4.807731       6.147469
+1695   2.999102  0.350518       2.385106       3.771158
+1704   3.718654  0.283618       3.202325       4.318234
+1722   6.896555  0.635357       5.757233       8.261342
+1741   4.282924  0.302967       3.728446       4.919861
+1760   4.672920  0.216014       4.268154       5.116073
+1779   5.686150  0.264180       5.191243       6.228240
+1798   4.247585  0.347819       3.617764       4.987052
+1818   5.832237  0.527511       4.884793       6.963445
+1838   3.182464  0.269893       2.695108       3.757948
+1859   3.696762  0.239816       3.255386       4.197981
+1879   2.920044  0.240228       2.485205       3.430967
+1974   4.867819  0.280810       4.347415       5.450517
+1984   3.174649  0.488072       2.348722       4.291013
+2000   3.946454  0.277039       3.439165       4.528569
+2018   5.105270  0.253209       4.632349       5.626473
+2039   3.775044  0.248860       3.317484       4.295712
+2059   9.064562  0.939118       7.398771      11.105397
+2080   3.888373  0.327508       3.296654       4.586299
+2102   7.638593  0.554125       6.626204       8.805661
+2126   5.920206  0.326735       5.313237       6.596513
+2267   2.182251  0.469619       1.431286       3.327230
+2286   1.794341  0.392446       1.168789       2.754698
+2306   2.096394  0.433851       1.397384       3.145068
+2328   1.872840  0.381498       1.256350       2.791842
+2353   1.420245  0.307469       0.929152       2.170901
+2378   2.061989  0.428466       1.372186       3.098560
+2404   1.843621  0.384120       1.225528       2.773448
+2432   1.971979  0.422817       1.295371       3.002000
+2457   1.740244  0.384036       1.129190       2.681964
+
+[121 rows x 4 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_106_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}489}]:} \PY{c+c1}{\PYZsh{}2 for the farm Pelham\PYZhy{}G}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}LitchfieldW = df\PYZus{}CEW\PYZus{}final.loc[df\PYZus{}CEW\PYZus{}final[\PYZsq{}farm\PYZsq{}] == \PYZsq{}Litchfield\PYZhy{}W\PYZsq{}]}
+          \PY{n}{df\PYZus{}CEW\PYZus{}LitchfieldW} \PY{o}{=} \PY{n}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}LitchfieldW} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ CEW }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Litchfield\PYZhy{}W }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                   71
+Model:                            GLM   Df Residuals:                       66
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -1624.1
+Date:                Tue, 05 May 2020   Deviance:                       2949.4
+Time:                        22:58:33   Pearson chi2:                 3.27e+03
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      8.1329      0.262     31.007      0.000       7.619       8.647
+tempf          0.0215      0.022      0.972      0.331      -0.022       0.065
+dwpf          -0.1705      0.008    -20.851      0.000      -0.187      -0.154
+drct          -0.0099      0.001    -11.087      0.000      -0.012      -0.008
+feel           0.0721      0.020      3.552      0.000       0.032       0.112
+==============================================================================
+            mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+1      26.307240  1.047871      24.331573      28.443326
+12     18.207249  0.690951      16.902147      19.613124
+23     31.192923  1.043747      29.212855      33.307201
+34     19.725128  0.899906      18.037903      21.570173
+46     15.029908  0.677410      13.759162      16.418015
+60     30.350252  1.468588      27.604149      33.369541
+74     20.752974  0.940198      18.989665      22.680017
+87     29.920072  1.879232      26.454528      33.839603
+101    23.769564  0.900847      22.067919      25.602424
+115    30.400877  0.927013      28.637193      32.273182
+128    26.999153  0.878869      25.330401      28.777842
+141    33.447056  1.005958      31.532403      35.477968
+153    56.214811  2.227980      52.013347      60.755656
+165    39.021705  1.981841      35.324438      43.105950
+177   105.148817  5.570842      94.777940     116.654506
+190    20.336806  0.705147      19.000658      21.766912
+202    18.397484  0.676353      17.118489      19.772038
+214    24.794600  1.058492      22.804416      26.958471
+228    25.324430  0.932444      23.561259      27.219545
+242    18.931625  0.654587      17.691166      20.259062
+256    28.089453  0.661830      26.821785      29.417033
+270    29.789631  0.784309      28.291403      31.367201
+284    19.357411  1.075534      17.360129      21.584481
+298    48.563254  1.711008      45.322909      52.035267
+312    33.979088  1.190737      31.723629      36.394904
+326    43.925918  1.251451      41.540344      46.448491
+340    24.518327  0.779529      23.037108      26.094784
+353    38.647180  1.599212      35.636519      41.912188
+361    46.156881  2.295113      41.870789      50.881717
+375    31.704187  1.533040      28.837473      34.855881
+{\ldots}          {\ldots}       {\ldots}            {\ldots}            {\ldots}
+552    27.532654  1.098778      25.461159      29.772684
+567    37.985433  1.495679      35.164217      41.032995
+581    92.117626  5.003217      82.815404     102.464719
+865    17.195394  0.913588      15.494870      19.082546
+885    24.575117  1.109651      22.493700      26.849134
+907    19.344606  0.686588      18.044657      20.738203
+928    46.497207  2.876285      41.188135      52.490607
+949    57.058712  3.160216      51.189145      63.601309
+971    40.569689  1.216499      38.254106      43.025438
+993    40.470378  1.217788      38.152578      42.928988
+1015   27.733457  0.832179      26.149452      29.413413
+1036   31.885738  1.628910      28.847762      35.243645
+1056   69.537163  2.623562      64.580597      74.874147
+1077   52.706898  1.771779      49.346202      56.296474
+1096   61.577673  2.203395      57.407054      66.051286
+1114   18.752096  0.816904      17.217442      20.423539
+1143    9.832564  3.058581       5.344247      18.090353
+1160   51.588248  2.604393      46.728143      56.953842
+1180   46.567613  2.932177      41.161122      52.684243
+1201   22.179256  0.739874      20.775518      23.677839
+1224   21.261381  0.679147      19.971090      22.635035
+1248   21.660646  0.678728      20.370389      23.032628
+1273   19.861834  0.703376      18.529998      21.289395
+1297   18.497761  0.658775      17.250618      19.835068
+1322   28.121930  0.727905      26.730847      29.585405
+1348   18.106678  0.770026      16.658640      19.680585
+1372   35.534764  0.949626      33.721435      37.445603
+1392   23.001718  1.127059      20.895479      25.320263
+1412   16.681536  0.818752      15.151581      18.365981
+1430   35.352564  1.937922      31.751232      39.362371
+
+[71 rows x 4 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_107_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}490}]:} \PY{c+c1}{\PYZsh{}3 for the farm Pelham\PYZhy{}G}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}LitchfieldM = df\PYZus{}CEW\PYZus{}final.loc[df\PYZus{}CEW\PYZus{}final[\PYZsq{}farm\PYZsq{}] == \PYZsq{}Litchfield\PYZhy{}M\PYZsq{}]}
+          \PY{n}{df\PYZus{}CEW\PYZus{}LitchfieldM} \PY{o}{=} \PY{n}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}LitchfieldM}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ CEW }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Litchfield\PYZhy{}M }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                  147
+Model:                            GLM   Df Residuals:                      142
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -2056.5
+Date:                Tue, 05 May 2020   Deviance:                       3762.8
+Time:                        22:59:02   Pearson chi2:                 7.16e+03
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      2.3816      0.181     13.123      0.000       2.026       2.737
+tempf         -0.2770      0.045     -6.196      0.000      -0.365      -0.189
+dwpf           0.0213      0.012      1.773      0.076      -0.002       0.045
+drct           0.0029      0.001      2.486      0.013       0.001       0.005
+feel           0.2516      0.044      5.770      0.000       0.166       0.337
+==============================================================================
+           mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+2      9.087069  0.454627       8.238309      10.023273
+13    10.241416  0.419049       9.452165      11.096568
+24     9.580303  0.439363       8.756735      10.481328
+35    10.409880  0.575224       9.341367      11.600615
+47    11.839416  0.608703      10.704521      13.094633
+61    11.154084  0.779488       9.726327      12.791426
+75    13.749310  0.997841      11.926306      15.850972
+88    10.683133  0.913031       9.035475      12.631249
+102   10.546769  0.457188       9.687708      11.482007
+116    9.885053  0.342851       9.235409      10.580396
+129    9.829666  0.373643       9.123954      10.589962
+142    8.659015  0.382702       7.940501       9.442544
+154    9.270532  0.340541       8.626544       9.962594
+166    9.199672  0.566758       8.153292      10.380344
+178    8.185837  0.529874       7.210482       9.293127
+189   10.068554  0.420609       9.277022      10.927620
+201   10.018342  0.398680       9.266639      10.831022
+213    9.713798  0.514677       8.755659      10.776786
+227   10.373288  0.466576       9.497965      11.329280
+241   10.300783  0.399112       9.547502      11.113497
+255    9.790119  0.276322       9.263244      10.346961
+269   11.249103  0.427756      10.441197      12.119522
+283   10.806422  0.718139       9.486706      12.309726
+297    8.942350  0.477378       8.053990       9.928695
+311    9.868661  0.369211       9.170915      10.619494
+325    8.796288  0.328615       8.175230       9.464527
+339   10.063738  0.370781       9.362638      10.817337
+352    9.332746  0.464100       8.466049      10.288170
+360    9.057209  0.480313       8.163085      10.049269
+374    8.798734  0.571247       7.747418       9.992713
+{\ldots}         {\ldots}       {\ldots}            {\ldots}            {\ldots}
+1964   8.911868  0.473302       8.030862       9.889522
+1981   4.173784  0.596587       3.154003       5.523291
+1996  10.514773  0.465633       9.640634      11.468173
+2014   9.325927  0.295471       8.764429       9.923397
+2035   8.999299  0.392173       8.262565       9.801724
+2055  11.107753  0.762794       9.708952      12.708084
+2076   6.017572  0.533429       5.057855       7.159394
+2098  10.464433  0.531000       9.473773      11.558686
+2122   7.858100  0.378670       7.149891       8.636458
+2145   8.139645  0.351928       7.478295       8.859481
+2165  11.000523  0.751338       9.622239      12.576232
+2184   9.398105  0.477441       8.507415      10.382045
+2202   9.721883  0.574017       8.659487      10.914620
+2219   9.768975  0.434537       8.953367      10.658880
+2233   6.508159  0.586904       5.453773       7.766392
+2244   9.317437  0.372928       8.614446      10.077797
+2264  16.409953  1.163352      14.281146      18.856089
+2283  14.773503  1.023988      12.896879      16.923194
+2303  15.628950  1.036087      13.724650      17.797473
+2325  15.684450  1.034814      13.781912      17.849624
+2350  13.855839  1.005138      12.019447      15.972805
+2375  15.755577  1.051688      13.823450      17.957761
+2401  15.289820  1.011799      13.429950      17.407259
+2429  15.403536  1.044555      13.486466      17.593112
+2454  15.533454  1.102632      13.515934      17.852128
+2480  16.489579  1.192265      14.310809      19.000059
+2504  14.407013  0.995084      12.582935      16.495518
+2525  14.150225  1.034227      12.261675      16.329650
+2544  16.019133  1.167101      13.887475      18.477990
+2561  15.191411  1.013747      13.328955      17.314108
+
+[147 rows x 4 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_108_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}491}]:} \PY{c+c1}{\PYZsh{}4 for the farm Pelham\PYZhy{}G}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}MerrimackT = df\PYZus{}CEW\PYZus{}final.loc[df\PYZus{}CEW\PYZus{}final[\PYZsq{}farm\PYZsq{}] == \PYZsq{}Merrimack\PYZhy{}T\PYZsq{}]}
+          \PY{n}{df\PYZus{}CEW\PYZus{}MerrimackT} \PY{o}{=} \PY{n}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}MerrimackT}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ CEW }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pelham }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                   57
+Model:                            GLM   Df Residuals:                       52
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -261.86
+Date:                Tue, 05 May 2020   Deviance:                       442.06
+Time:                        22:59:19   Pearson chi2:                 1.00e+03
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      3.1511      1.593      1.978      0.048       0.028       6.274
+tempf         -0.8531      0.300     -2.848      0.004      -1.440      -0.266
+dwpf           0.0833      0.044      1.894      0.058      -0.003       0.169
+drct           0.0111      0.004      2.728      0.006       0.003       0.019
+feel           0.7260      0.274      2.646      0.008       0.188       1.264
+==============================================================================
+         mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+3    1.479193  0.314923       0.974546       2.245159
+14   2.235216  0.312423       1.699591       2.939642
+25   1.843400  0.395422       1.210684       2.806778
+36   2.188388  0.378886       1.558661       3.072537
+48   3.300892  0.496988       2.457383       4.433939
+62   2.123896  0.551724       1.276488       3.533862
+76   4.904716  1.346422       2.863819       8.400055
+89   3.122806  0.873068       1.805377       5.401596
+103  3.783502  0.505770       2.911436       4.916779
+117  2.975777  0.352815       2.358740       3.754229
+130  3.099495  0.348772       2.486046       3.864316
+143  1.771994  0.292116       1.282745       2.447846
+155  2.912253  0.542976       2.020815       4.196929
+167  3.335762  0.649144       2.277982       4.884724
+179  1.969816  0.516077       1.178738       3.291805
+188  2.577706  0.310816       2.035151       3.264902
+200  2.540122  0.362352       1.920567       3.359540
+212  1.780957  0.336066       1.230360       2.577953
+226  1.969849  0.362783       1.372996       2.826161
+240  2.668884  0.301315       2.139094       3.329888
+254  2.399880  0.228290       1.991675       2.891750
+268  3.387736  0.495333       2.543620       4.511977
+282  3.422587  0.725660       2.258822       5.185935
+296  1.566101  0.345239       1.016663       2.412474
+310  3.227115  0.496071       2.387636       4.361751
+324  2.251816  0.294793       1.742205       2.910493
+338  2.652492  0.321719       2.091281       3.364308
+373  1.418680  0.340094       0.886808       2.269548
+387  2.139583  0.384915       1.503822       3.044121
+401  2.050106  0.335434       1.487663       2.825192
+415  2.732142  0.566609       1.819599       4.102331
+430  2.607196  0.447338       1.862628       3.649400
+445  3.515635  0.656855       2.437624       5.070383
+460  2.768742  0.344226       2.169982       3.532718
+475  1.770328  0.283101       1.294000       2.421994
+490  2.894939  0.407476       2.196994       3.814608
+505  4.183406  0.669555       3.056996       5.724862
+520  2.758782  0.321792       2.194982       3.467399
+535  3.846904  0.585729       2.854352       5.184597
+550  3.212209  0.540105       2.310371       4.466075
+565  3.387524  0.623845       2.361160       4.860034
+579  2.714042  0.690765       1.648059       4.469515
+603  3.200356  0.303413       2.657659       3.853872
+616  1.584743  0.309350       1.080935       2.323367
+630  2.895801  0.395459       2.215777       3.784525
+646  2.393403  0.380771       1.752252       3.269153
+662  1.785627  0.351959       1.213426       2.627654
+679  2.039669  0.299315       1.529849       2.719384
+696  3.326735  0.656373       2.259821       4.897362
+714  3.174982  0.304975       2.630138       3.832693
+732  3.076538  0.492580       2.247904       4.210628
+750  2.554674  0.289229       2.046285       3.189369
+768  2.282508  0.488626       1.500347       3.472423
+786  2.747073  0.317544       2.190165       3.445591
+803  2.343925  0.529033       1.505998       3.648070
+818  4.263822  0.937848       2.770597       6.561827
+833  0.837576  0.482644       0.270725       2.591313
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_109_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}492}]:} \PY{c+c1}{\PYZsh{}5 for the farm Pelham\PYZhy{}G}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}HollisL = df\PYZus{}CEW\PYZus{}final.loc[df\PYZus{}CEW\PYZus{}final[\PYZsq{}farm\PYZsq{}] == \PYZsq{}Hollis\PYZhy{}L\PYZsq{}]}
+          \PY{n}{df\PYZus{}CEW\PYZus{}HollisL} \PY{o}{=} \PY{n}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}HollisL}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ CEW }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pelham }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                  131
+Model:                            GLM   Df Residuals:                      126
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -1651.0
+Date:                Tue, 05 May 2020   Deviance:                       2932.4
+Time:                        22:59:41   Pearson chi2:                 4.81e+03
+No. Iterations:                     5   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      2.4252      0.176     13.742      0.000       2.079       2.771
+tempf         -0.1507      0.033     -4.523      0.000      -0.216      -0.085
+dwpf           0.0676      0.012      5.433      0.000       0.043       0.092
+drct           0.0054      0.001      4.659      0.000       0.003       0.008
+feel           0.0807      0.032      2.501      0.012       0.017       0.144
+==============================================================================
+           mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+4      8.502088  0.443956       7.674996       9.418311
+15    10.226770  0.431006       9.415962      11.107395
+26     8.575923  0.431635       7.770322       9.465046
+37     9.681282  0.554388       8.653460      10.831185
+49    11.144371  0.539337      10.135876      12.253210
+63     7.627142  0.533184       6.650551       8.747140
+77    10.592199  0.661107       9.372573      11.970532
+90    10.297001  0.908985       8.661030      12.241988
+104   12.778486  0.538295      11.765826      13.878302
+118   11.348379  0.385611      10.617213      12.129897
+131   12.073349  0.429508      11.260207      12.945212
+144    9.626746  0.396282       8.880555      10.435636
+156   10.478381  0.358728       9.798357      11.205600
+168   12.603594  0.724640      11.260426      14.106977
+180    8.273725  0.527917       7.301110       9.375906
+196   11.181255  0.471558      10.294185      12.144766
+208   11.390430  0.443134      10.554191      12.292927
+222    8.834825  0.491979       7.921322       9.853676
+236    8.459860  0.400604       7.710024       9.282620
+250   11.242965  0.437457      10.417443      12.133905
+264   10.181454  0.300647       9.608923      10.788098
+278   10.211543  0.386861       9.480775      10.998637
+292   12.097877  0.802611      10.622771      13.777820
+306    7.673550  0.439253       6.859168       8.584624
+320   11.658520  0.421587      10.860828      12.514801
+334   10.191170  0.334230       9.556701      10.867762
+348   10.771033  0.403539      10.008453      11.591717
+358   10.492708  0.513581       9.532884      11.549172
+364   11.734313  0.559690      10.687055      12.884196
+369   11.213054  0.607364      10.083654      12.468950
+{\ldots}         {\ldots}       {\ldots}            {\ldots}            {\ldots}
+1978   9.320283  0.389528       8.587255      10.115885
+1988   4.927821  0.570901       3.926820       6.183992
+2004   9.182726  0.422695       8.390532      10.049716
+2022   9.596848  0.310088       9.007931      10.224268
+2043  10.432887  0.427420       9.627910      11.305166
+2063  12.827874  0.868079      11.234476      14.647267
+2084   8.214693  0.545951       7.211410       9.357557
+2108  11.454067  0.588773      10.356319      12.668173
+2132   8.408786  0.374115       7.706595       9.174958
+2153   8.046830  0.337590       7.411639       8.736458
+2173  14.416599  0.968367      12.638262      16.445167
+2192  12.312180  0.579970      11.226356      13.503026
+2209  11.872800  0.696041      10.584042      13.318482
+2226  12.798987  0.526452      11.807657      13.873545
+2239   7.847172  0.607231       6.742879       9.132317
+2250  11.434542  0.416369      10.646914      12.280436
+2272  22.809960  1.335253      20.337461      25.583049
+2291  20.706301  1.221713      18.445055      23.244762
+2312  22.419865  1.241739      20.113545      24.990638
+2334  21.362233  1.172197      19.184001      23.787791
+2359  18.664091  1.198621      16.456675      21.167598
+2384  22.256909  1.235608      19.962264      24.815322
+2411  21.427474  1.191083      19.215667      23.893869
+2438  22.346991  1.273907      19.984611      24.988628
+2464  21.128158  1.261677      18.794543      23.751524
+2489  24.644721  1.504243      21.865983      27.776583
+2512  19.912046  1.191870      17.707846      22.390614
+2533  19.310596  1.237363      17.031517      21.894650
+2552  25.200536  1.586963      22.274437      28.511026
+2568  22.286586  1.256134      19.955723      24.889698
+
+[131 rows x 4 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_110_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}493}]:} \PY{c+c1}{\PYZsh{}6 for the farm Pelham\PYZhy{}G}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}HollisB = df\PYZus{}CEW\PYZus{}final.loc[df\PYZus{}CEW\PYZus{}final[\PYZsq{}farm\PYZsq{}] == \PYZsq{}Hollis\PYZhy{}B\PYZsq{}]}
+          \PY{n}{df\PYZus{}CEW\PYZus{}HollisB} \PY{o}{=} \PY{n}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}HollisB}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ CEW }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pelham }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                   62
+Model:                            GLM   Df Residuals:                       57
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -1648.7
+Date:                Tue, 05 May 2020   Deviance:                       3091.3
+Time:                        22:59:51   Pearson chi2:                 4.36e+03
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      3.6484      0.496      7.357      0.000       2.676       4.620
+tempf         -0.4368      0.089     -4.884      0.000      -0.612      -0.262
+dwpf           0.0125      0.014      0.903      0.367      -0.015       0.040
+drct           0.0110      0.001      8.689      0.000       0.008       0.013
+feel           0.3997      0.082      4.893      0.000       0.240       0.560
+==============================================================================
+          mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+5    13.966743  0.944250      12.233422      15.945653
+16   18.781128  0.866616      17.157135      20.558839
+27   25.212796  1.586913      22.286698      28.523072
+38   16.039471  0.885700      14.394172      17.872834
+51   25.681243  1.215579      23.405926      28.177746
+65   19.686865  1.555140      16.863080      22.983503
+79   36.374011  2.933274      31.056218      42.602376
+92   47.675581  3.804963      40.772003      55.748083
+106  31.835499  1.380733      29.241142      34.660035
+120  22.840007  0.855250      21.223781      24.579311
+133  26.798790  0.931428      25.034016      28.687971
+146  16.607272  0.811350      15.090816      18.276114
+158  23.776344  1.359108      21.256342      26.595099
+170  36.770176  2.001653      33.049048      40.910280
+182  22.663791  1.789767      19.413904      26.457709
+194  20.049335  0.797184      18.546213      21.674280
+206  24.464947  1.097398      22.405923      26.713187
+220  14.803150  0.891307      13.155361      16.657334
+234  20.057507  1.150441      17.924806      22.443957
+248  22.038910  0.833858      20.463706      23.735365
+262  23.550049  0.687159      22.241030      24.936112
+276  28.847011  1.322792      26.367479      31.559712
+290  39.697656  2.490347      35.104806      44.891401
+304  17.210032  1.178075      15.049240      19.681075
+318  23.178632  1.109523      21.102903      25.458535
+332  22.697655  0.803154      21.176848      24.327678
+346  28.126120  1.006380      26.221227      30.169398
+356  18.033537  0.991641      16.191029      20.085719
+362  20.685435  1.375050      18.158570      23.563928
+367  16.834714  0.877736      15.199364      18.646016
+..         {\ldots}       {\ldots}            {\ldots}            {\ldots}
+409  21.357879  1.096428      19.313494      23.618667
+423  20.090672  1.360506      17.593512      22.942270
+438  20.580527  1.163909      18.421192      22.992978
+453  24.370581  1.483893      21.629045      27.459614
+468  23.218577  0.942573      21.442753      25.141470
+483  19.235352  0.931860      17.492969      21.151285
+498  32.456090  1.322004      29.965739      35.153405
+513  34.815164  1.804284      31.452503      38.537333
+528  21.461589  0.788199      19.971036      23.063390
+543  36.424501  1.724041      33.197441      39.965257
+558  21.939910  1.137960      19.819170      24.287578
+573  23.327775  1.327764      20.865311      26.080852
+587  37.189252  2.807773      32.073923      43.120403
+596  24.504749  1.303128      22.079263      27.196684
+610  27.788163  0.854968      26.161980      29.515426
+623  19.130208  1.127025      17.044040      21.471721
+638  20.972519  0.944778      19.200182      22.908457
+654  19.439451  1.024941      17.530914      21.555765
+670  23.394712  1.359669      20.875987      26.217326
+686  17.708035  0.845909      16.125332      19.446079
+704  24.391304  1.421096      21.759153      27.341860
+722  25.668911  0.830823      24.091103      27.350056
+740  36.447731  1.661980      33.331631      39.855149
+758  22.363606  0.732209      20.973580      23.845757
+777  27.940013  1.793210      24.637458      31.685264
+795  27.086699  0.857054      25.457930      28.819675
+812  16.858732  1.138211      14.769178      19.243916
+827  33.583876  2.365607      29.253189      38.555684
+842  17.883289  2.681774      13.329117      23.993489
+855  26.650112  2.194748      22.677702      31.318361
+
+[62 rows x 4 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_111_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}494}]:} \PY{c+c1}{\PYZsh{}7 for the farm Pelham\PYZhy{}G}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}HollisK = df\PYZus{}CEW\PYZus{}final.loc[df\PYZus{}CEW\PYZus{}final[\PYZsq{}farm\PYZsq{}] == \PYZsq{}Hollis\PYZhy{}K\PYZsq{}]}
+          \PY{n}{df\PYZus{}CEW\PYZus{}HollisK} \PY{o}{=} \PY{n}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}HollisK}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ CEW }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pelham }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                  150
+Model:                            GLM   Df Residuals:                      145
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -2617.0
+Date:                Tue, 05 May 2020   Deviance:                       4826.3
+Time:                        22:59:53   Pearson chi2:                 8.15e+03
+No. Iterations:                     5   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      1.2953      0.161      8.045      0.000       0.980       1.611
+tempf         -0.1764      0.033     -5.369      0.000      -0.241      -0.112
+dwpf           0.0254      0.010      2.619      0.009       0.006       0.044
+drct           0.0088      0.001      9.261      0.000       0.007       0.011
+feel           0.1598      0.032      4.986      0.000       0.097       0.223
+==============================================================================
+           mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+6     10.539962  0.461240       9.673633      11.483876
+17    13.308909  0.469214      12.420320      14.261070
+28    16.092749  0.580850      14.993639      17.272429
+39    11.519985  0.548995      10.492698      12.647848
+52    16.669509  0.684559      15.380374      18.066696
+66    12.957925  0.738709      11.588039      14.489754
+80    19.251977  1.056730      17.288342      21.438644
+93    24.507152  1.644526      21.486905      27.951931
+107   16.830012  0.575551      15.738927      17.996736
+121   12.694210  0.376030      11.978191      13.453030
+134   14.761487  0.443772      13.916838      15.657399
+147   10.800980  0.398768      10.047016      11.611524
+159   11.385235  0.356986      10.706620      12.106863
+171   17.228111  0.806759      15.717286      18.884165
+183   10.517094  0.549270       9.493811      11.650672
+193   13.040712  0.463561      12.163077      13.981674
+205   15.938736  0.509561      14.970662      16.969411
+219   10.747891  0.497760       9.815267      11.769130
+233   13.765512  0.517102      12.788422      14.817256
+247   14.319102  0.464934      13.436238      15.259978
+261   14.245552  0.330713      13.611891      14.908711
+275   15.551866  0.471959      14.653816      16.504953
+289   22.278666  1.162396      20.113030      24.677482
+303   10.828683  0.490594       9.908591      11.834213
+317   12.202619  0.391186      11.459499      12.993929
+331   12.404366  0.361166      11.716312      13.132827
+345   16.708138  0.478497      15.796135      17.672796
+355   10.175437  0.437512       9.353068      11.070113
+366   11.391056  0.522574      10.411528      12.462740
+380    9.036233  0.506592       8.095937      10.085740
+{\ldots}         {\ldots}       {\ldots}            {\ldots}            {\ldots}
+1985   6.359201  0.689553       5.141661       7.865052
+2001  12.867901  0.488283      11.945606      13.861404
+2019  14.187225  0.373617      13.473526      14.938729
+2040  12.283086  0.444651      11.441785      13.186248
+2060  22.572620  1.223672      20.297284      25.103022
+2081   9.719351  0.639834       8.542832      11.057900
+2104  19.251831  0.755742      17.826153      20.791530
+2128  13.601160  0.497065      12.661004      14.611128
+2149  11.609205  0.420832      10.813009      12.464027
+2169  21.312913  1.146867      19.179571      23.683546
+2188  16.223739  0.624815      15.044202      17.495757
+2206  18.956525  0.860660      17.342537      20.720718
+2223  13.150527  0.475054      12.251636      14.115369
+2236   9.590147  0.652611       8.392684      10.958463
+2247  12.830757  0.415827      12.041096      13.672203
+2257  14.096954  0.983072      12.296045      16.161628
+2268  14.093293  1.019974      12.229494      16.241138
+2287  11.789249  0.854127      10.228615      13.587996
+2307  13.503558  0.925177      11.806723      15.444258
+2329  12.581518  0.859607      11.004653      14.384332
+2354   9.870935  0.734507       8.531384      11.420815
+2379  13.395450  0.924411      11.700825      15.335507
+2406  12.332053  0.852011      10.770270      14.120309
+2434  12.947098  0.914311      11.273570      14.869058
+2459  11.926565  0.881350      10.318420      13.785342
+2484  15.250828  1.106700      13.228929      17.581752
+2508  10.722965  0.770597       9.314166      12.344849
+2529  10.146304  0.765482       8.751640      11.763222
+2548  15.508904  1.124921      13.453651      17.878130
+2565  12.639568  0.880336      11.026729      14.488310
+
+[150 rows x 4 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_112_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}495}]:} \PY{c+c1}{\PYZsh{}8 for the farm Pelham\PYZhy{}G}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}MilfordS = df\PYZus{}CEW\PYZus{}final.loc[df\PYZus{}CEW\PYZus{}final[\PYZsq{}farm\PYZsq{}] == \PYZsq{}Milford\PYZhy{}S\PYZsq{}]}
+          \PY{n}{df\PYZus{}CEW\PYZus{}MilfordS}  \PY{o}{=} \PY{n}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}MilfordS} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ CEW }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pelham }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                  133
+Model:                            GLM   Df Residuals:                      128
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -2587.4
+Date:                Tue, 05 May 2020   Deviance:                       4824.0
+Time:                        22:59:58   Pearson chi2:                 9.66e+03
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      3.4241      0.168     20.416      0.000       3.095       3.753
+tempf         -0.0154      0.027     -0.567      0.571      -0.069       0.038
+dwpf          -0.1052      0.010    -10.956      0.000      -0.124      -0.086
+drct          -0.0014      0.001     -1.367      0.172      -0.003       0.001
+feel           0.0967      0.026      3.691      0.000       0.045       0.148
+==============================================================================
+           mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+7     11.167180  0.525048      10.184098      12.245161
+18     9.950779  0.402821       9.191773      10.772459
+29    16.691575  0.592494      15.569784      17.894191
+40     9.586804  0.510698       8.636336      10.641875
+53    10.263369  0.456383       9.406746      11.198001
+67    15.251691  0.815229      13.734720      16.936208
+81    13.757024  0.695066      12.459999      15.189063
+94    19.856676  1.467721      17.178664      22.952169
+108   11.283191  0.455429      10.424962      12.212073
+122   10.988554  0.367161      10.291990      11.732262
+135   11.216424  0.386758      10.483440      12.000657
+148   11.438693  0.428493      10.628951      12.310123
+160   13.934758  0.419357      13.136605      14.781406
+172   14.333567  0.733038      12.966497      15.844769
+184   20.534813  0.940195      18.772328      22.462773
+192    9.570042  0.392482       8.830896      10.371055
+204   10.596131  0.399853       9.840714      11.409537
+217   10.738375  0.544016       9.723350      11.859360
+231   13.648717  0.500490      12.702196      14.665770
+245    9.956125  0.379003       9.240328      10.727370
+259   12.672374  0.329245      12.043221      13.334396
+273   13.916593  0.423279      13.111225      14.771431
+287   13.480892  0.808615      11.985651      15.162669
+301   16.051645  0.682834      14.767590      17.447350
+315   10.933616  0.388352      10.198351      11.721891
+329   13.714747  0.368570      13.011058      14.456494
+343   12.989019  0.434320      12.165062      13.868784
+378   10.910158  0.655739       9.697746      12.274146
+392   12.491839  0.546846      11.464733      13.610962
+406   11.387249  0.363455      10.696714      12.122362
+{\ldots}         {\ldots}       {\ldots}            {\ldots}            {\ldots}
+1793  17.740747  0.751764      16.326845      19.277093
+1813  21.246491  1.060888      19.265695      23.430942
+1833  10.828736  0.519205       9.857464      11.895708
+1854  13.360359  0.458859      12.490613      14.290667
+1874  10.760662  0.498961       9.825838      11.784423
+1894  14.479247  0.429025      13.662324      15.345017
+1913  16.591444  0.887124      14.940718      18.424549
+1932  14.361780  0.403101      13.593056      15.173978
+1949  12.271418  0.600388      11.149338      13.506425
+1963  16.305284  0.695788      14.997036      17.727655
+1995  11.671229  0.470103      10.785275      12.629959
+2013  11.729206  0.346614      11.069154      12.428617
+2034   9.653812  0.383977       8.929818      10.436504
+2054  12.016883  0.747449      10.637686      13.574895
+2075  10.986719  0.606817       9.859493      12.242820
+2097  14.353710  0.651917      13.131195      15.690040
+2121  14.091086  0.474379      13.191330      15.052212
+2144  11.900508  0.427946      11.090626      12.769532
+2164  12.233041  0.759574      10.831326      13.816156
+2183  14.103044  0.595237      12.983352      15.319299
+2201  15.106602  0.780878      13.651084      16.717311
+2218  10.240923  0.404760       9.477556      11.065775
+2232  19.452409  1.104934      17.402975      21.743191
+2349  22.097470  1.734288      18.946859      25.771986
+2374  22.192994  1.654556      19.175921      25.684764
+2400  21.731139  1.612104      18.790438      25.132060
+2428  22.724984  1.736256      19.564524      26.395985
+2453  24.059096  1.894716      20.617926      28.074603
+2479  22.505710  1.789634      19.257768      26.301438
+2503  21.725915  1.659462      18.705179      25.234475
+
+[133 rows x 4 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_113_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}496}]:} \PY{c+c1}{\PYZsh{}9 for the farm Pelham\PYZhy{}G}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}AntrimT = df\PYZus{}CEW\PYZus{}final.loc[df\PYZus{}CEW\PYZus{}final[\PYZsq{}farm\PYZsq{}] == \PYZsq{}Antrim\PYZhy{}T\PYZsq{}]}
+          \PY{n}{df\PYZus{}CEW\PYZus{}AntrimT} \PY{o}{=} \PY{n}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}AntrimT}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ CEW }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pelham }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                  142
+Model:                            GLM   Df Residuals:                      137
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -1251.4
+Date:                Tue, 05 May 2020   Deviance:                       2179.9
+Time:                        23:00:03   Pearson chi2:                 3.63e+03
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      0.9277      0.261      3.557      0.000       0.416       1.439
+tempf         -0.0284      0.039     -0.733      0.463      -0.104       0.048
+dwpf          -0.0800      0.013     -6.398      0.000      -0.105      -0.056
+drct           0.0015      0.001      1.050      0.294      -0.001       0.004
+feel           0.1113      0.038      2.957      0.003       0.038       0.185
+==============================================================================
+           mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+8      6.181190  0.393237       5.456575       7.002032
+19     6.033850  0.323979       5.431133       6.703453
+30     9.829203  0.441956       9.000058      10.734735
+41     5.643320  0.402893       4.906422       6.490893
+54     6.832148  0.405215       6.082364       7.674359
+68     9.350180  0.691688       8.088195      10.809071
+82     9.065657  0.617240       7.933134      10.359858
+95    12.159481  1.170709      10.068431      14.684808
+109    5.954082  0.325109       5.349792       6.626630
+123    5.276911  0.240478       4.826018       5.769930
+136    5.611728  0.265688       5.114419       6.157393
+149    5.484092  0.282115       4.958117       6.065864
+161    5.568133  0.256458       5.087504       6.094167
+173    6.443291  0.466396       5.591054       7.425432
+185    7.404710  0.489626       6.504645       8.429321
+197    5.296506  0.285792       4.764966       5.887339
+209    6.304794  0.320062       5.707682       6.964373
+223    6.019285  0.412819       5.262199       6.885296
+237    8.392567  0.415954       7.615658       9.248734
+251    5.775810  0.289927       5.234621       6.372949
+265    6.813173  0.236904       6.364319       7.293684
+279    7.671816  0.309274       7.088979       8.302574
+293    8.438152  0.681278       7.203162       9.884881
+307    7.820552  0.456663       6.974827       8.768825
+321    4.945972  0.243173       4.491605       5.446303
+335    6.090136  0.241532       5.634673       6.582415
+349    7.392152  0.329789       6.773231       8.067627
+370    4.546151  0.306403       3.983587       5.188161
+384    5.524409  0.450945       4.707650       6.482874
+398    7.406698  0.444621       6.584569       8.331475
+{\ldots}         {\ldots}       {\ldots}            {\ldots}            {\ldots}
+1957   5.481573  0.380073       4.785043       6.279493
+1989   6.981841  0.900919       5.421670       8.990975
+2005   6.946167  0.379562       6.240691       7.731394
+2023   7.043430  0.281067       6.513541       7.616427
+2044   5.357713  0.284353       4.828399       5.945052
+2064   7.774239  0.654430       6.591806       9.168777
+2085   5.585907  0.441207       4.784769       6.521183
+2109   8.037590  0.486449       7.138544       9.049863
+2133   8.064396  0.377713       7.357056       8.839744
+2154   7.122796  0.350928       6.467154       7.844907
+2174   6.525678  0.552300       5.528206       7.703126
+2193   6.284177  0.378127       5.585095       7.070763
+2210   7.638742  0.539404       6.651428       8.772608
+2227   4.650093  0.253058       4.179644       5.173496
+2240   6.900913  0.561776       5.883201       8.094676
+2251   5.170842  0.248338       4.706314       5.681221
+2273   3.564253  0.492598       2.718493       4.673141
+2292   3.370123  0.470246       2.563742       4.430137
+2313   3.389566  0.447588       2.616640       4.390806
+2335   3.344875  0.437343       2.588721       4.321898
+2360   3.147291  0.439909       2.393103       4.139163
+2385   3.410658  0.452926       2.629062       4.424615
+2412   3.285601  0.437314       2.531162       4.264909
+2439   3.309663  0.451982       2.532445       4.325412
+2465   3.347457  0.473942       2.536294       4.418049
+2490   3.430269  0.473511       2.617153       4.496009
+2513   3.142450  0.430570       2.402365       4.110530
+2534   3.143228  0.448496       2.376408       4.157487
+2553   3.345142  0.461137       2.553137       4.382833
+2569   3.203883  0.431740       2.460213       4.172349
+
+[142 rows x 4 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_114_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}497}]:} \PY{c+c1}{\PYZsh{}10 for the farm Pelham\PYZhy{}G}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}MasonB = df\PYZus{}CEW\PYZus{}final.loc[df\PYZus{}CEW\PYZus{}final[\PYZsq{}farm\PYZsq{}] == \PYZsq{}Mason\PYZhy{}B\PYZsq{}]}
+          \PY{n}{df\PYZus{}CEW\PYZus{}MasonB} \PY{o}{=} \PY{n}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}MasonB}\PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ CEW }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pelham }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                  121
+Model:                            GLM   Df Residuals:                      116
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -1691.4
+Date:                Tue, 05 May 2020   Deviance:                       3035.8
+Time:                        23:00:08   Pearson chi2:                 4.65e+03
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept      2.1164      0.175     12.119      0.000       1.774       2.459
+tempf         -0.0215      0.049     -0.434      0.664      -0.118       0.075
+dwpf          -0.0384      0.011     -3.597      0.000      -0.059      -0.017
+drct           0.0050      0.001      4.528      0.000       0.003       0.007
+feel           0.0514      0.049      1.049      0.294      -0.045       0.148
+==============================================================================
+           mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+9      8.367362  0.459699       7.513182       9.318654
+20     9.001210  0.431687       8.193667       9.888341
+31    13.709982  0.544046      12.684083      14.818857
+42     7.804058  0.508892       6.867754       8.868010
+55    10.058911  0.584302       8.976486      11.271860
+69     9.960897  0.786350       8.532994      11.627744
+83    11.985184  0.976487      10.216295      14.060344
+96    20.031700  1.576392      17.168510      23.372384
+110   12.046757  0.513784      11.080699      13.097040
+124    9.862917  0.379100       9.147193      10.634643
+137   11.263478  0.445796      10.422765      12.172005
+150    9.271766  0.433970       8.459049      10.162566
+162   10.792596  0.405713      10.026002      11.617806
+174   15.279858  0.989653      13.458241      17.348037
+186   12.926649  0.745140      11.545680      14.472794
+199    9.041409  0.421403       8.252076       9.906244
+211   11.037341  0.447660      10.193911      11.950555
+225    8.074031  0.489745       7.169011       9.093301
+239   10.417789  0.525881       9.436427      11.501209
+253    9.724729  0.415484       8.943559      10.574130
+267   11.214553  0.329898      10.586251      11.880145
+281   11.655625  0.489314      10.734982      12.655224
+295   15.541347  0.965536      13.759611      17.553801
+309   10.422641  0.523141       9.446124      11.500109
+323    9.696406  0.398437       8.946102      10.509637
+337   11.484633  0.441352      10.651373      12.383079
+351   12.648849  0.444954      11.806141      13.551709
+429    8.528328  0.548467       7.518342       9.673992
+444    9.006601  0.492613       8.091047      10.025755
+459    9.277738  0.565588       8.232870      10.455213
+{\ldots}         {\ldots}       {\ldots}            {\ldots}            {\ldots}
+1959  13.629715  0.810742      12.129821      15.315075
+1971  10.591315  0.530629       9.600732      11.684103
+1991   8.865351  1.271655       6.692660      11.743381
+2007   9.245710  0.491426       8.331005      10.260846
+2027  10.703967  0.357004      10.026632      11.427058
+2048   9.087653  0.432064       8.279080       9.975193
+2068  14.651457  0.943003      12.915031      16.621345
+2089   9.766736  0.933277       8.098627      11.778432
+2113  14.737378  0.694886      13.436464      16.164246
+2137  12.278178  0.574552      11.202175      13.457535
+2158   9.639801  0.422451       8.846375      10.504389
+2178  15.001690  0.980844      13.197350      17.052719
+2197  14.273901  0.755682      12.867045      15.834581
+2214  15.914100  0.923158      14.203811      17.830326
+2229  10.138284  0.478212       9.243026      11.120256
+2242  13.129635  1.183258      11.003767      15.666209
+2253  10.028572  0.434057       9.212921      10.916435
+2275  16.914982  1.235109      14.659459      19.517543
+2294  15.558238  1.112326      13.523973      17.898495
+2316  15.844962  1.081916      13.860215      18.113919
+2339  14.569506  0.996918      12.740937      16.660509
+2364  13.098564  0.971731      11.325996      15.148547
+2389  15.777986  1.086066      13.786680      18.056909
+2416  14.826593  1.014608      12.965589      16.954713
+2443  15.902867  1.113355      13.863825      18.241803
+2469  15.281013  1.121375      13.233903      17.644784
+2494  17.467757  1.287970      15.117310      20.183652
+2516  13.671441  0.972745      11.891865      15.717325
+2537  13.656671  1.022299      11.793056      15.814787
+2555  17.693788  1.313515      15.297874      20.464944
+
+[121 rows x 4 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_115_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}498}]:} \PY{c+c1}{\PYZsh{}11 for the farm Pelham\PYZhy{}G}
+          \PY{c+c1}{\PYZsh{}df\PYZus{}CEW\PYZus{}PeterboroughR = df\PYZus{}CEW\PYZus{}final.loc[df\PYZus{}CEW\PYZus{}final[\PYZsq{}farm\PYZsq{}] == \PYZsq{}Peterborough\PYZhy{}R\PYZsq{}]}
+          \PY{n}{df\PYZus{}CEW\PYZus{}PeterboroughR}  \PY{o}{=} \PY{n}{Poisson\PYZus{}Regression}\PY{p}{(}\PY{n}{df\PYZus{}CEW\PYZus{}PeterboroughR} \PY{p}{,}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{ CEW }\PY{l+s+s2}{\PYZdq{}}\PY{p}{,} \PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{Pelham }\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+                 Generalized Linear Model Regression Results                  
+==============================================================================
+Dep. Variable:             trap\_count   No. Observations:                   62
+Model:                            GLM   Df Residuals:                       57
+Model Family:                 Poisson   Df Model:                            4
+Link Function:                    log   Scale:                          1.0000
+Method:                          IRLS   Log-Likelihood:                -323.90
+Date:                Tue, 05 May 2020   Deviance:                       583.82
+Time:                        23:00:12   Pearson chi2:                 1.36e+03
+No. Iterations:                     6   Covariance Type:             nonrobust
+==============================================================================
+                 coef    std err          z      P>|z|      [0.025      0.975]
+------------------------------------------------------------------------------
+Intercept     -3.5814      0.688     -5.204      0.000      -4.930      -2.233
+tempf         -0.3741      0.173     -2.164      0.030      -0.713      -0.035
+dwpf           0.3600      0.046      7.909      0.000       0.271       0.449
+drct           0.0245      0.004      6.164      0.000       0.017       0.032
+feel           0.0825      0.161      0.513      0.608      -0.233       0.398
+==============================================================================
+          mean   mean\_se  mean\_ci\_lower  mean\_ci\_upper
+10    1.369555  0.261288       0.942290       1.990556
+21    3.249635  0.359442       2.616275       4.036323
+32    1.158213  0.226921       0.788893       1.700430
+43    2.546223  0.425146       1.835567       3.532016
+56    4.793446  0.685125       3.622313       6.343217
+70    0.799080  0.218808       0.467208       1.366693
+84    2.851134  0.689965       1.774311       4.581477
+97    1.989833  0.519988       1.192281       3.320891
+371   3.902986  0.560328       2.945746       5.171289
+385   1.076158  0.256211       0.674873       1.716049
+399   1.405269  0.268270       0.966635       2.042945
+413   2.925206  0.283877       2.418530       3.538030
+427   9.590745  1.479231       7.088707      12.975904
+442   6.837048  0.808809       5.422171       8.621128
+457   9.557787  1.446919       7.103904      12.859310
+472   4.860074  0.441708       4.067067       5.807703
+487   1.041559  0.190857       0.727291       1.491624
+502   2.664085  0.353685       2.053724       3.455842
+517   6.460309  0.833784       5.016433       8.319774
+532   3.287019  0.347249       2.672263       4.043200
+547   3.030005  0.383079       2.364979       3.882035
+562   4.002822  0.526356       3.093403       5.179598
+577   2.492950  0.318431       1.940829       3.202136
+591   0.535490  0.156545       0.301933       0.949712
+600   1.644819  0.376940       1.049663       2.577428
+691   2.322112  0.303178       1.797833       2.999280
+709   3.218939  0.642116       2.177282       4.758947
+727   3.657678  0.283829       3.141621       4.258504
+745   2.261109  0.367363       1.644472       3.108970
+763   2.470629  0.303379       1.942159       3.142897
+{\ldots}        {\ldots}       {\ldots}            {\ldots}            {\ldots}
+1453  0.365153  0.129914       0.181817       0.733356
+1471  1.622306  0.297475       1.132535       2.323882
+1490  4.057105  0.347324       3.430410       4.798291
+1511  3.142153  0.391077       2.461986       4.010228
+1534  3.478777  0.386281       2.798400       4.324575
+1710  3.973408  0.476786       3.140682       5.026925
+1728  1.971818  0.642040       1.041619       3.732716
+1747  5.225520  0.513131       4.310661       6.334540
+1766  2.028275  0.240764       1.607259       2.559574
+1785  1.267748  0.208883       0.917874       1.750987
+1804  0.446778  0.127328       0.255569       0.781047
+2024  2.388407  0.273000       1.909037       2.988149
+2045  3.222181  0.409144       2.512271       4.132695
+2065  6.953016  1.238025       4.904694       9.856769
+2086  1.345069  0.478844       0.669448       2.702541
+2110  3.104707  0.438967       2.353268       4.096093
+2134  1.312435  0.289595       0.851640       2.022551
+2155  1.363184  0.268932       0.926035       2.006695
+2175  6.968639  1.251603       4.900810       9.908960
+2194  2.692310  0.441666       1.952036       3.713319
+2211  2.875181  0.508443       2.033011       4.066217
+2293  0.724650  0.239319       0.379328       1.384338
+2314  1.255257  0.392902       0.679676       2.318267
+2336  1.120635  0.351160       0.606364       2.071071
+2361  0.586647  0.197131       0.303632       1.133462
+2386  1.189362  0.375436       0.640652       2.208033
+2413  1.038138  0.327888       0.558997       1.927972
+2440  1.073603  0.345741       0.571116       2.018195
+2466  0.759007  0.255854       0.392025       1.469526
+2491  1.619072  0.533048       0.849229       3.086794
+
+[62 rows x 4 columns]
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 432x288 with 0 Axes>
+    \end{verbatim}
+
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_116_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+/anaconda3/lib/python3.6/site-packages/ipykernel\_launcher.py:37: SettingWithCopyWarning: 
+A value is trying to be set on a copy of a slice from a DataFrame.
+Try using .loc[row\_indexer,col\_indexer] = value instead
+
+See the caveats in the documentation: http://pandas.pydata.org/pandas-docs/stable/indexing.html\#indexing-view-versus-copy
+
+    \end{Verbatim}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}499}]:} \PY{n}{df\PYZus{}CEW\PYZus{}pelham}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}499}]:}         farm  trap\_count  year        date      tempf       dwpf        drct  \textbackslash{}
+          0   Pelham-G           0  2006  2006-06-19  70.977613  63.913169   63.703704   
+          11  Pelham-G           0  2006  2006-06-26  71.243468  65.095887   84.233871   
+          22  Pelham-G           0  2006  2006-07-03  71.056485  59.203758  127.515152   
+          33  Pelham-G           0  2006  2006-07-10  71.830909  66.491782   59.745455   
+          45  Pelham-G           0  2006  2006-07-17  73.200175  66.515808  101.004367   
+          
+                   feel  regression\_count  poisson\_count   NB\_count  poisson\_count\_farm  
+          0   71.301399         10.459989      10.502287  10.398317            3.176978  
+          11  71.733347         11.033953      10.824663  10.793132            3.996585  
+          22  71.263273         11.528981      12.268939  12.518481            6.933632  
+          33  72.608255         10.756261      10.622663  10.572345            3.089388  
+          45  74.150786         11.687964      11.674616  11.854049            5.179942  
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}469}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poisson\PYZus{}count\PYZus{}farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{l+m+mi}{0} 
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}470}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poisson\PYZus{}count\PYZus{}farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{df\PYZus{}CEW\PYZus{}pelham}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{poisson\PYZus{}count\PYZus{}farm}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}474}]:} \PY{n}{df\PYZus{}CEW\PYZus{}final}\PY{o}{.}\PY{n}{head}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}474}]:}            farm  trap\_count  year        date      tempf       dwpf  \textbackslash{}
+          0      Pelham-G           0  2006  2006-06-19  70.977613  63.913169   
+          1  Litchfield-W           0  2006  2006-06-19  70.977613  63.913169   
+          2  Litchfield-M           0  2006  2006-06-19  70.977613  63.913169   
+          3   Merrimack-T           0  2006  2006-06-19  70.977613  63.913169   
+          4      Hollis-L           1  2006  2006-06-19  70.977613  63.913169   
+          
+                  drct       feel  regression\_count  poisson\_count   NB\_count  \textbackslash{}
+          0  63.703704  71.301399         10.459989      10.502287  10.398317   
+          1  63.703704  71.301399         10.459989      10.502287  10.398317   
+          2  63.703704  71.301399         10.459989      10.502287  10.398317   
+          3  63.703704  71.301399         10.459989      10.502287  10.398317   
+          4  63.703704  71.301399         10.459989      10.502287  10.398317   
+          
+             poisson\_count\_farm  
+          0            3.176978  
+          1                 NaN  
+          2                 NaN  
+          3                 NaN  
+          4                 NaN  
+\end{Verbatim}
+            
     \section{selecting weather dataframe within the date range - ECB
 Pest}\label{selecting-weather-dataframe-within-the-date-range---ecb-pest}
 
@@ -1614,7 +3456,7 @@ Name: trap\_count, Length: 4020, dtype: float64
 
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_85_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_141_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
@@ -2012,7 +3854,7 @@ Name: trap\_count, Length: 2634, dtype: float64
 
 
     \begin{center}
-    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_108_0.png}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_164_0.png}
     \end{center}
     { \hspace*{\fill} \\}
     
